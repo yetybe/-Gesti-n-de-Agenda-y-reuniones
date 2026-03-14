@@ -4,10 +4,36 @@
  */
 package com.mycompany.gestion_de_agenda_reuniones;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+
 /**
  *
  * @author tomas
  */
 public class Reunion extends Actividad {
     
+    private String anfitrion;
+    
+    public Reunion(String id, String titulo, String tipoActividad, LocalDate fecha, 
+                   LocalTime horaInicio, LocalTime horaFin, 
+                   String anfitrion) {
+        
+        super(id , titulo , tipoActividad , fecha , horaInicio , horaFin);
+        this.anfitrion = anfitrion;
+       
+    }
+    
+    
+    public String getHost(){
+        return anfitrion;
+    }
+    
+    public void setHost(String anfitrion){
+        this.anfitrion = anfitrion;
+    }
+    
 }
+    
+

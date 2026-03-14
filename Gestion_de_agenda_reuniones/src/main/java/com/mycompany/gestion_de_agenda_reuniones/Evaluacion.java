@@ -1,0 +1,60 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.gestion_de_agenda_reuniones;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+/**
+ *
+ * @author benjja
+ */
+public class Evaluacion  extends Actividad{
+    
+    private double ponderacionNota;
+    private String temario;
+    private boolean esGrupal;
+    
+    public Evaluacion(String id, String titulo, String tipoActividad, LocalDate fecha, 
+                   LocalTime horaInicio, LocalTime horaFin, 
+                   double ponderacionNota , String temario , boolean esGrupal){
+        
+        
+          super(id , titulo , tipoActividad , fecha , horaInicio , horaFin);
+          this.ponderacionNota = ponderacionNota;
+          this.esGrupal = esGrupal;
+          this.temario = temario;
+
+    }
+    
+    public void setPNota(){
+        this.ponderacionNota = ponderacionNota;
+        
+    }
+    
+    public void setTemario(){
+        this.temario = temario;
+        
+    }
+    
+    public void setEsGrupal(){
+        this.esGrupal = esGrupal;
+        
+    }
+   
+    public double getPonderacion(){
+        return ponderacionNota;
+    }
+    
+    public String getTemrario(){
+        return temario;
+    }
+    
+    public boolean getEsGrupal(){
+        return esGrupal;
+    }
+    
+      
+    
+}
