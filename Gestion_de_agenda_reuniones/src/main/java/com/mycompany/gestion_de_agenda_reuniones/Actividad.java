@@ -12,12 +12,12 @@ import java.time.LocalTime;
  */
 public  abstract class Actividad {
     
-    protected String id;
-    protected String titulo;
-    protected String tipoActividad;
-    protected LocalDate fecha;
-    protected LocalTime horaInicio;
-    protected LocalTime horaFin;
+    private String id;
+    private String titulo;
+    private String tipoActividad;
+    private LocalDate fecha;
+    private LocalTime horaInicio;
+    private LocalTime horaFin;
     
     public Actividad(String id, String titulo, String tipoActividad, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin) {
         this.id = id;
@@ -28,61 +28,20 @@ public  abstract class Actividad {
         this.horaFin = horaFin;
     }
     
-    
-public void setId(String id) {
-        this.id = id;
-    }
+    // Setters
+    public void setId(String id) { this.id = id; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public void setTipoActividad(String tipoActividad) { this.tipoActividad = tipoActividad; }
+    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+    public void setHoraInicio(LocalTime horaInicio) { this.horaInicio = horaInicio; }
+    public void setHoraFin(LocalTime horaFin) { this.horaFin = horaFin; }
 
-public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+    // Getters
+    public String getId() { return id; }
+    public String getTitulo() { return titulo; }
+    public String getTipoActividad() { return tipoActividad; }
+    public LocalDate getFecha() { return fecha; }
+    public LocalTime getHoraInicio() { return horaInicio; }
+    public LocalTime getHoraFin() { return horaFin; }
 
-public void setTipoActividad(String tipoActividad) {
-        this.tipoActividad = tipoActividad;
-    }
-
-public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-public void setHoraInicio(LocalTime horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-public void setHoraFin(LocalTime horaFin) {
-        this.horaFin = horaFin;
-    }
-  
-public String getId(){
-        return id;
-    }
-   
-public String getTitulo(){
-        return titulo;
-    }
-    
-public String getTipoAct(){
-        return tipoActividad;
-    }
-   
-    public LocalDate getFecha(){
-        return fecha;
-    }
-    
-    public LocalTime getBegginTime(){
-        return horaInicio;
-    }
-
-       public LocalTime getEndTime(){
-        return horaFin;
-    }
-       
-
-
-   
-   //prueba 
-
-    
-    
-    
 }
