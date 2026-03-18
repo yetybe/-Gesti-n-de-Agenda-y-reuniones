@@ -25,20 +25,19 @@ public class Evaluacion  extends Actividad{
           this.ponderacionNota = ponderacionNota;
           this.esGrupal = esGrupal;
           this.temario = temario;
-
     }
     
-    public void setPNota(){
+    public void setPNota(double ponderacionNota){
         this.ponderacionNota = ponderacionNota;
         
     }
     
-    public void setTemario(){
+    public void setTemario(String temario){
         this.temario = temario;
         
     }
     
-    public void setEsGrupal(){
+    public void setEsGrupal(boolean esGrupal){
         this.esGrupal = esGrupal;
         
     }
