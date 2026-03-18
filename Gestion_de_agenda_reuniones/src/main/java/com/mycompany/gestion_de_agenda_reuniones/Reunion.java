@@ -25,15 +25,8 @@ public class Reunion extends Actividad {
        
     }
     
-    
-    public String getHost(){
-        return anfitrion;
-    }
-    
-    public void setHost(String anfitrion){
-        this.anfitrion = anfitrion;
-    }
-    
+    public String getAnfitrion() { return anfitrion; }
+    public void setAnfitrion(String anfitrion) { this.anfitrion = anfitrion; }
 }
     
 
