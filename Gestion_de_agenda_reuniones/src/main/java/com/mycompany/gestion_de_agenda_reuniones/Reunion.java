@@ -22,11 +22,18 @@ public class Reunion extends Actividad {
         
         super(id , titulo , tipoActividad , fecha , horaInicio , horaFin);
         this.anfitrion = anfitrion;
-       
+
     }
     
     public String getAnfitrion() { return anfitrion; }
     public void setAnfitrion(String anfitrion) { this.anfitrion = anfitrion; }
+    
+    // Métodos
+    // Sobreescritura de método obtenerDetalles
+    @Override
+    public String obtenerDetalles() {
+        return super.obtenerDetalles() + " | Anfitrión: " + anfitrion;
+    }
 }
     
 
