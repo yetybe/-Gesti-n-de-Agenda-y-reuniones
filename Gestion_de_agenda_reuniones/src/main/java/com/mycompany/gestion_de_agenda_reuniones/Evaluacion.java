@@ -46,7 +46,7 @@ public class Evaluacion  extends Actividad{
         return ponderacionNota;
     }
     
-    public String getTemrario(){
+    public String getTemario(){
         return temario;
     }
     
