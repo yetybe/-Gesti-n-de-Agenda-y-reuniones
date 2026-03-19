@@ -12,12 +12,12 @@ import java.time.LocalTime;
  */
 public  abstract class Actividad {
     
-    private String id;
-    private String titulo;
-    private String tipoActividad;
-    private LocalDate fecha;
-    private LocalTime horaInicio;
-    private LocalTime horaFin;
+    protected String id;
+    protected String titulo;
+    protected String tipoActividad;
+    protected LocalDate fecha;
+    protected LocalTime horaInicio;
+    protected LocalTime horaFin;
     
     public Actividad(String id, String titulo, String tipoActividad, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin) {
         this.id = id;

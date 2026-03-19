@@ -30,10 +30,10 @@ public class Reunion extends Actividad {
     
     // Métodos
     // Sobreescritura de método obtenerDetalles
-    @Override
+    /*@Override
     public String obtenerDetalles() {
         return super.obtenerDetalles() + " | Anfitrión: " + anfitrion;
-    }
+    }*/
 }
     
 

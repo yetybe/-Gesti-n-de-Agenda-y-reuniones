@@ -16,7 +16,7 @@ import java.time.LocalTime;
  *
  * @author benjja
  */
-public class LecotrCSV {
+public class LectorCSV {
     
     public static Agenda leerDatosCSV() throws IOException{
         
