@@ -54,6 +54,12 @@ public class Evaluacion  extends Actividad{
         return esGrupal;
     }
     
-      
+    // Métodos
+    // Sobreescritura de método obtenerDetalles
+    @Override
+    public String obtenerDetalles() {
+        String modo = esGrupal ? "Grupal" : "Individual";
+        return super.obtenerDetalles() + " | Ponderación: " + ponderacionNota + "% (" + modo + ")";
+    }
     
 }
