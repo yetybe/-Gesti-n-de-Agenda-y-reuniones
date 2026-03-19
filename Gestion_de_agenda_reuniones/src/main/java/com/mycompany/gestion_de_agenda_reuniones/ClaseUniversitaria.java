@@ -25,6 +25,7 @@ public class ClaseUniversitaria extends Actividad {
         this.asignatura = asignatura;
     }
     
+    // Setters
     public void setSala(String sala){
         this.sala = sala;
     }
@@ -37,6 +38,7 @@ public class ClaseUniversitaria extends Actividad {
         this.asignatura = asignatura;
     }
     
+    // Getters
     public String getSala(){
         return sala;
     }
@@ -49,5 +51,10 @@ public class ClaseUniversitaria extends Actividad {
         return asignatura;
     }
     
-    
+    // Métodos
+    // Sobreescritura de método obtenerDetalles
+    @Override
+    public String obtenerDetalles() {
+        return super.obtenerDetalles() + " | Sala: " + sala + " | Prof: " + profesor;
+    }
 }

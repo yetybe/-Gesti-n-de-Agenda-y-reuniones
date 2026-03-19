@@ -43,5 +43,10 @@ public  abstract class Actividad {
     public LocalDate getFecha() { return fecha; }
     public LocalTime getHoraInicio() { return horaInicio; }
     public LocalTime getHoraFin() { return horaFin; }
-
+    
+    // Métodos
+    // Método para usar sobreescrtitura en clases hijas
+    public String obtenerDetalles() {
+        return "ID: " + getId() + " | " + getTitulo() + " [" + getTipoActividad() + "]";
+    }
 }
