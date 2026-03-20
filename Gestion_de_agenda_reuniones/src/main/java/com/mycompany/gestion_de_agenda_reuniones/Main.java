@@ -23,6 +23,7 @@ public class Main {
         System.out.println("¡Datos cargados exitosamente!");
         
         VentanaLauncher ventanaInicial = new VentanaLauncher(agendaActividades);
+        ventanaInicial.setLocationRelativeTo(null);
         ventanaInicial.setVisible(true);
         
         

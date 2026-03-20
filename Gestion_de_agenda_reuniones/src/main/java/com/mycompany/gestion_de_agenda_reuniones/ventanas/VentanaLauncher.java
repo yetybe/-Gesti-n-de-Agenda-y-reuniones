@@ -47,6 +47,11 @@ public class VentanaLauncher extends javax.swing.JFrame {
         });
 
         ventanaBtn.setText("Interfaz Grafica");
+        ventanaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ventanaBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,6 +85,19 @@ public class VentanaLauncher extends javax.swing.JFrame {
     private void terminalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terminalBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_terminalBtnActionPerformed
+
+    private void ventanaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventanaBtnActionPerformed
+        // TODO add your handling code here:
+        VentanaMenuMain ventanaMain = new VentanaMenuMain(this.actividades);
+        ventanaMain.setLocationRelativeTo(null);
+        ventanaMain.setVisible(true);
+        
+        this.dispose();
+        
+        
+        
+        
+    }//GEN-LAST:event_ventanaBtnActionPerformed
 
     /**
      * @param args the command line arguments
