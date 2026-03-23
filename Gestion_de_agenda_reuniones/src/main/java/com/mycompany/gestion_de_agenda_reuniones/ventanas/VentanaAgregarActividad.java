@@ -4,18 +4,31 @@
  */
 package com.mycompany.gestion_de_agenda_reuniones.ventanas;
 
+import com.mycompany.gestion_de_agenda_reuniones.Agenda;
+import com.mycompany.gestion_de_agenda_reuniones.Actividad;
+import com.mycompany.gestion_de_agenda_reuniones.ClaseUniversitaria;
+import com.mycompany.gestion_de_agenda_reuniones.Evaluacion;
+import com.mycompany.gestion_de_agenda_reuniones.Reunion;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  *
  * @author benjja
  */
 public class VentanaAgregarActividad extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaAgregarActividad
-     */
-    public VentanaAgregarActividad() {
+    private Agenda actividades;
+    public VentanaAgregarActividad(Agenda actividades) {
         initComponents();
+        
+        this.actividades = actividades;
+        ocultarCamposEspecificos();
+        this.setSize(461 , 342);
+        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,57 +39,297 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jTextField9 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        txtId = new javax.swing.JTextField();
+        cbxTipoActividad = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtTitulo = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtAnfitrion = new javax.swing.JTextField();
+        lblAnfitrion = new javax.swing.JLabel();
+        txtProfesor = new javax.swing.JTextField();
+        lblProfesor = new javax.swing.JLabel();
+        txtSala = new javax.swing.JTextField();
+        lblSala = new javax.swing.JLabel();
+        txtAsignatura = new javax.swing.JTextField();
+        lblAsignatura = new javax.swing.JLabel();
+        txtPonderacionNota = new javax.swing.JTextField();
+        lblPonderacionNota = new javax.swing.JLabel();
+        txtTemario = new javax.swing.JTextField();
+        lblTemario = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        chbxEsGrupal = new javax.swing.JCheckBox();
+        btnGuardar = new javax.swing.JButton();
+        txtFecha = new javax.swing.JFormattedTextField();
+        txtHrInicio = new javax.swing.JFormattedTextField();
+        txtHrFinal = new javax.swing.JFormattedTextField();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jTextField9.setText("jTextField1");
+
+        jLabel6.setText("Sala ");
+
+        jTextField1.setText("jTextField1");
+
+        jFormattedTextField1.setText("jFormattedTextField1");
+
+        jToggleButton1.setText("jToggleButton1");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 78, 72, -1));
+
+        cbxTipoActividad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reunion", "Evaluacion", "Clase Universitaria" }));
+        cbxTipoActividad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxTipoActividadActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbxTipoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(248, 37, -1, -1));
+
+        jLabel1.setText("¿Que actividad quieres agregar? :");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 40, -1, -1));
+
+        jLabel2.setText("ID :");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 81, -1, -1));
+        getContentPane().add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 113, 72, -1));
+
+        jLabel8.setText("Titulo:");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 116, -1, -1));
+
+        jLabel9.setText("Fecha:");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 151, -1, -1));
+
+        jLabel10.setText("Hora inicio ");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 180, -1, -1));
+
+        jLabel11.setText("Hora final ");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 209, -1, -1));
+        getContentPane().add(txtAnfitrion, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 73, -1));
+
+        lblAnfitrion.setText("Anfitrion:");
+        getContentPane().add(lblAnfitrion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
+        getContentPane().add(txtProfesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(287, 113, 72, -1));
+
+        lblProfesor.setText("Profesor");
+        getContentPane().add(lblProfesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 116, -1, -1));
+        getContentPane().add(txtSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 148, 75, -1));
+
+        lblSala.setText("Sala ");
+        getContentPane().add(lblSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 151, -1, -1));
+        getContentPane().add(txtAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 78, 95, -1));
+
+        lblAsignatura.setText("Asingatura");
+        getContentPane().add(lblAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 81, -1, -1));
+        getContentPane().add(txtPonderacionNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 72, 20));
+
+        lblPonderacionNota.setText("Ponderacion Nota");
+        getContentPane().add(lblPonderacionNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, 20));
+        getContentPane().add(txtTemario, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 75, -1));
+
+        lblTemario.setText("Temario");
+        getContentPane().add(lblTemario, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(724, 78, -1, -1));
+
+        chbxEsGrupal.setText("Es un trabajo grupal");
+        chbxEsGrupal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbxEsGrupalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(chbxEsGrupal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, -1, -1));
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, -1, -1));
+
+        try {
+            txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter(" ##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 90, -1));
+
+        try {
+            txtHrInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter(" ##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(txtHrInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 60, -1));
+
+        try {
+            txtHrFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter(" ##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(txtHrFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 60, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ocultarCamposEspecificos(){
+        
+        lblAsignatura.setVisible(false);
+        lblProfesor.setVisible(false);
+        lblSala.setVisible(false);
+        txtAsignatura.setVisible(false);
+        txtProfesor.setVisible(false);
+        txtSala.setVisible(false);
+        
+        lblAnfitrion.setVisible(false);
+        txtAnfitrion.setVisible(false);
+        
+        lblPonderacionNota.setVisible(false);
+        lblTemario.setVisible(false);
+        txtPonderacionNota.setVisible(false);
+        txtTemario.setVisible(false);
+        chbxEsGrupal.setVisible(false);
+             
+    }
+    
+    private void cbxTipoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActividadActionPerformed
+        // TODO add your handling code here:
+        ocultarCamposEspecificos();
+        String option = cbxTipoActividad.getSelectedItem().toString();
+        
+        switch(option){
+            
+            case"Reunion":
+                lblAnfitrion.setVisible(true);
+                txtAnfitrion.setVisible(true);
+                break;
+                
+            case"Clase Universitaria":
+                lblAsignatura.setVisible(true);
+                lblProfesor.setVisible(true);
+                lblSala.setVisible(true);
+                txtAsignatura.setVisible(true);
+                txtProfesor.setVisible(true);
+                txtSala.setVisible(true);
+                break;
+           
+            case"Evaluacion":
+                lblPonderacionNota.setVisible(true);
+                lblTemario.setVisible(true);
+                txtPonderacionNota.setVisible(true);
+                txtTemario.setVisible(true);
+                chbxEsGrupal.setVisible(true);
+                break;
+                
+        }
+    }//GEN-LAST:event_cbxTipoActividadActionPerformed
+
+    private void chbxEsGrupalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbxEsGrupalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbxEsGrupalActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+        String id = txtId.getText();
+        String titulo = txtTitulo.getText();
+        LocalDate fecha = LocalDate.parse(txtFecha.getText());
+        LocalTime hrInicio =LocalTime.parse( txtHrInicio.getText());
+        LocalTime hrFinal =LocalTime.parse( txtHrFinal.getText());
+        String tipoActividad = cbxTipoActividad.getSelectedItem().toString();
+        Actividad newAct = null;
+        
+        switch(tipoActividad){
+            
+            case "Reunion":
+                String anfitrion = txtAnfitrion.getText();
+                newAct = new Reunion(id , titulo , tipoActividad , fecha , hrInicio , hrFinal , anfitrion);
+                break;
+            
+            case"Clase Universitaria":
+                String asignatura = txtAsignatura.getText();
+                String profesor = txtProfesor.getText();
+                String sala = txtSala.getText();
+                
+                newAct = new ClaseUniversitaria(id , titulo , tipoActividad , fecha , hrInicio , hrFinal , asignatura , profesor , sala);
+                break;
+                
+            case"Evaluacion":
+                Double pondNota = Double.parseDouble(txtPonderacionNota.getText());
+                String temario = txtTemario.getText();
+                Boolean esGrupal = chbxEsGrupal.isSelected();
+                
+                newAct = new Evaluacion(id , titulo , tipoActividad , fecha , hrInicio , hrFinal , pondNota , temario , esGrupal);
+                break;
+                
+        }
+        
+        if(newAct != null){
+            
+            actividades.agregarActividad(newAct);
+            System.out.println("¡Actividad guardada con éxito!");
+            this.dispose();
+            
+            
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregarActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregarActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregarActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregarActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaAgregarActividad().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<String> cbxTipoActividad;
+    private javax.swing.JCheckBox chbxEsGrupal;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField9;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JLabel lblAnfitrion;
+    private javax.swing.JLabel lblAsignatura;
+    private javax.swing.JLabel lblPonderacionNota;
+    private javax.swing.JLabel lblProfesor;
+    private javax.swing.JLabel lblSala;
+    private javax.swing.JLabel lblTemario;
+    private javax.swing.JTextField txtAnfitrion;
+    private javax.swing.JTextField txtAsignatura;
+    private javax.swing.JFormattedTextField txtFecha;
+    private javax.swing.JFormattedTextField txtHrFinal;
+    private javax.swing.JFormattedTextField txtHrInicio;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtPonderacionNota;
+    private javax.swing.JTextField txtProfesor;
+    private javax.swing.JTextField txtSala;
+    private javax.swing.JTextField txtTemario;
+    private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

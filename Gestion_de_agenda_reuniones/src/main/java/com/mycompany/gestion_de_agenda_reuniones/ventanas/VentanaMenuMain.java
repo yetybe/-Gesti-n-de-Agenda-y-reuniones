@@ -31,6 +31,7 @@ public class VentanaMenuMain extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         BtnAgregarActividad = new javax.swing.JButton();
         BtnEliminarActividad = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jToolBar1.setRollover(true);
 
@@ -49,6 +50,8 @@ public class VentanaMenuMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Myanmar Sangam MN", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Agenda de actividades");
 
         BtnAgregarActividad.setText("Agregar actividad");
@@ -65,28 +68,37 @@ public class VentanaMenuMain extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Generar Reporte");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(126, 126, 126)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(BtnEliminarActividad)
-                    .addComponent(BtnAgregarActividad))
-                .addContainerGap(139, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(199, 199, 199)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnAgregarActividad)
+                            .addComponent(BtnEliminarActividad)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
+                .addGap(30, 30, 30)
                 .addComponent(BtnAgregarActividad)
                 .addGap(18, 18, 18)
                 .addComponent(BtnEliminarActividad)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         pack();
@@ -94,6 +106,9 @@ public class VentanaMenuMain extends javax.swing.JFrame {
 
     private void BtnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActividadActionPerformed
         // TODO add your handling code here:
+         VentanaAgregarActividad ventanaAgregar = new VentanaAgregarActividad(this.actividades);
+        ventanaAgregar.setLocationRelativeTo(null);
+        ventanaAgregar.setVisible(true);
     }//GEN-LAST:event_BtnAgregarActividadActionPerformed
 
     private void BtnEliminarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActividadActionPerformed
@@ -107,6 +122,7 @@ public class VentanaMenuMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAgregarActividad;
     private javax.swing.JButton BtnEliminarActividad;
+    private javax.swing.JButton jButton1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JToolBar jToolBar1;
