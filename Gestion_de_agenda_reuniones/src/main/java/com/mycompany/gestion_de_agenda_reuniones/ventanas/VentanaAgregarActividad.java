@@ -11,6 +11,7 @@ import com.mycompany.gestion_de_agenda_reuniones.Evaluacion;
 import com.mycompany.gestion_de_agenda_reuniones.Reunion;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -161,25 +162,30 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, -1, -1));
 
         try {
-            txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter(" ##/##/####")));
+            txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        getContentPane().add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 90, -1));
+        txtFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 70, -1));
 
         try {
-            txtHrInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter(" ##:##")));
+            txtHrInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        getContentPane().add(txtHrInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 60, -1));
+        getContentPane().add(txtHrInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 50, -1));
 
         try {
-            txtHrFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter(" ##:##")));
+            txtHrFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        getContentPane().add(txtHrFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 60, -1));
+        getContentPane().add(txtHrFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 50, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -193,9 +199,6 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         txtProfesor.setVisible(false);
         txtSala.setVisible(false);
         
-        lblAnfitrion.setVisible(false);
-        txtAnfitrion.setVisible(false);
-        
         lblPonderacionNota.setVisible(false);
         lblTemario.setVisible(false);
         txtPonderacionNota.setVisible(false);
@@ -206,6 +209,8 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
     
     private void cbxTipoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActividadActionPerformed
         // TODO add your handling code here:
+        lblAnfitrion.setVisible(false);
+        txtAnfitrion.setVisible(false);
         ocultarCamposEspecificos();
         String option = cbxTipoActividad.getSelectedItem().toString();
         
@@ -244,17 +249,19 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         
         String id = txtId.getText();
         String titulo = txtTitulo.getText();
-        LocalDate fecha = LocalDate.parse(txtFecha.getText());
+        String tipoActividad = cbxTipoActividad.getSelectedItem().toString();
+        String fecha = txtFecha.getText();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaFinal = LocalDate.parse(fecha, formato);
         LocalTime hrInicio =LocalTime.parse( txtHrInicio.getText());
         LocalTime hrFinal =LocalTime.parse( txtHrFinal.getText());
-        String tipoActividad = cbxTipoActividad.getSelectedItem().toString();
         Actividad newAct = null;
         
         switch(tipoActividad){
             
             case "Reunion":
                 String anfitrion = txtAnfitrion.getText();
-                newAct = new Reunion(id , titulo , tipoActividad , fecha , hrInicio , hrFinal , anfitrion);
+                newAct = new Reunion(id , titulo , tipoActividad , fechaFinal , hrInicio , hrFinal , anfitrion);
                 break;
             
             case"Clase Universitaria":
@@ -262,7 +269,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
                 String profesor = txtProfesor.getText();
                 String sala = txtSala.getText();
                 
-                newAct = new ClaseUniversitaria(id , titulo , tipoActividad , fecha , hrInicio , hrFinal , asignatura , profesor , sala);
+                newAct = new ClaseUniversitaria(id , titulo , tipoActividad , fechaFinal , hrInicio , hrFinal , asignatura , profesor , sala);
                 break;
                 
             case"Evaluacion":
@@ -270,7 +277,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
                 String temario = txtTemario.getText();
                 Boolean esGrupal = chbxEsGrupal.isSelected();
                 
-                newAct = new Evaluacion(id , titulo , tipoActividad , fecha , hrInicio , hrFinal , pondNota , temario , esGrupal);
+                newAct = new Evaluacion(id , titulo , tipoActividad , fechaFinal , hrInicio , hrFinal , pondNota , temario , esGrupal);
                 break;
                 
         }
@@ -278,7 +285,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         if(newAct != null){
             
             actividades.agregarActividad(newAct);
-            System.out.println("¡Actividad guardada con éxito!");
+            javax.swing.JOptionPane.showMessageDialog(this, "¡Actividad guardada con éxito!");
             this.dispose();
             
             
@@ -292,6 +299,10 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
+
+    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaActionPerformed
 
     /**
      * @param args the command line arguments
