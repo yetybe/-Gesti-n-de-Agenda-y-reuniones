@@ -12,6 +12,7 @@ import com.mycompany.gestion_de_agenda_reuniones.Reunion;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  *
@@ -23,9 +24,11 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
     public VentanaAgregarActividad(Agenda actividades) {
         initComponents();
         
+        
         this.actividades = actividades;
-        ocultarCamposEspecificos();
+        cargarFechas();
         this.setSize(461 , 342);
+        ocultarCamposEspecificos();
         
     }
     
@@ -69,9 +72,9 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         chbxEsGrupal = new javax.swing.JCheckBox();
         btnGuardar = new javax.swing.JButton();
-        txtFecha = new javax.swing.JFormattedTextField();
         txtHrInicio = new javax.swing.JFormattedTextField();
         txtHrFinal = new javax.swing.JFormattedTextField();
+        cbxFechasDisponibles = new javax.swing.JComboBox<>();
 
         jTextField9.setText("jTextField1");
 
@@ -162,18 +165,6 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, -1, -1));
 
         try {
-            txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 70, -1));
-
-        try {
             txtHrInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
@@ -187,9 +178,27 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         }
         getContentPane().add(txtHrFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 50, -1));
 
+        cbxFechasDisponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFechasDisponiblesActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbxFechasDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 90, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+  private void cargarFechas(){
+        cbxFechasDisponibles.removeAllItems();
+        DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        List<LocalDate> fechas = actividades.getDiasHabilitados();
+        System.out.println("ATENCIÓN: Intentando cargar fechas. El tamaño de la lista es: " + fechas.size());
+        for( LocalDate fecha : fechas ){
+         cbxFechasDisponibles.addItem(fecha.format(formato));
+        }
+    }
+    
     private void ocultarCamposEspecificos(){
         
         lblAsignatura.setVisible(false);
@@ -247,12 +256,15 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
+        
+        String fecha = cbxFechasDisponibles.getSelectedItem().toString();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaFinal = LocalDate.parse(fecha, formato);
+        actividades.agregarFecha(fechaFinal);
+        
         String id = txtId.getText();
         String titulo = txtTitulo.getText();
         String tipoActividad = cbxTipoActividad.getSelectedItem().toString();
-        String fecha = txtFecha.getText();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaFinal = LocalDate.parse(fecha, formato);
         LocalTime hrInicio =LocalTime.parse( txtHrInicio.getText());
         LocalTime hrFinal =LocalTime.parse( txtHrFinal.getText());
         Actividad newAct = null;
@@ -300,9 +312,12 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
 
-    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
+    private void cbxFechasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFechasDisponiblesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaActionPerformed
+        
+
+        
+    }//GEN-LAST:event_cbxFechasDisponiblesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,6 +326,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<String> cbxFechasDisponibles;
     private javax.swing.JComboBox<String> cbxTipoActividad;
     private javax.swing.JCheckBox chbxEsGrupal;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -333,7 +349,6 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
     private javax.swing.JLabel lblTemario;
     private javax.swing.JTextField txtAnfitrion;
     private javax.swing.JTextField txtAsignatura;
-    private javax.swing.JFormattedTextField txtFecha;
     private javax.swing.JFormattedTextField txtHrFinal;
     private javax.swing.JFormattedTextField txtHrInicio;
     private javax.swing.JTextField txtId;

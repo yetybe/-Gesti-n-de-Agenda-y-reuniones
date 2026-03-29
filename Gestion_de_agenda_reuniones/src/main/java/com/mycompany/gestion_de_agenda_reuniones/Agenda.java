@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.io.BufferedReader;
-import java.io.IOException;
+
 
         
 /**
@@ -24,12 +23,31 @@ public class Agenda {
         this.mapaActividades = new HashMap<>();
     }
     
+    public void agregarFecha(LocalDate fecha){
+          if (!mapaActividades.containsKey(fecha)) {
+          mapaActividades.put(fecha, new ArrayList<>());
+        }
+    }
     public void agregarActividad(Actividad act){
         if (act == null) return;
-        
         LocalDate fecha = act.getFecha();
-        mapaActividades.computeIfAbsent(fecha, k -> new ArrayList<>()).add(act);
+        
+        if(mapaActividades.containsKey(fecha)){
+          mapaActividades.get(fecha).add(act);
+        }
+        else{
+            return;
+        }
+        
     }
+    
+    public List<LocalDate> getDiasHabilitados() {
+        List<LocalDate> lista =  new ArrayList<>(mapaActividades.keySet());
+        java.util.Collections.sort(lista);
+        
+        return lista;
+    }
+    
     public void eliminarActividad(LocalDate fecha, String id){
         List<Actividad> listaDelDia = mapaActividades.get(fecha);
         if (listaDelDia != null){
@@ -41,12 +59,6 @@ public class Agenda {
             }
         }     
     }
-    
-    
-        
-        
-        
-        
-        
+ 
     }
             

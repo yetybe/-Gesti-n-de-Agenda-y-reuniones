@@ -4,6 +4,7 @@
  */
 package com.mycompany.gestion_de_agenda_reuniones.ventanas;
 import com.mycompany.gestion_de_agenda_reuniones.Agenda;
+
 /**
  *
  * @author benjja
@@ -29,9 +30,12 @@ public class VentanaMenuMain extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jLabel1 = new javax.swing.JLabel();
-        BtnAgregarActividad = new javax.swing.JButton();
-        BtnEliminarActividad = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnAgregarActividad = new javax.swing.JButton();
+        btnEliminarDiaAgenda = new javax.swing.JButton();
+        btnVerReporteDias = new javax.swing.JButton();
+        btnHabilitarDiaAgenda = new javax.swing.JButton();
+        btnVerReporteActividades = new javax.swing.JButton();
+        btnEliminarActividadDia = new javax.swing.JButton();
 
         jToolBar1.setRollover(true);
 
@@ -54,74 +58,138 @@ public class VentanaMenuMain extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Agenda de actividades");
 
-        BtnAgregarActividad.setText("Agregar actividad");
-        BtnAgregarActividad.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarActividad.setText("Agregar actividad");
+        btnAgregarActividad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAgregarActividadActionPerformed(evt);
+                btnAgregarActividadActionPerformed(evt);
             }
         });
 
-        BtnEliminarActividad.setText("Eliminar actividad");
-        BtnEliminarActividad.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarDiaAgenda.setText("Eliminar Dia en Agenda");
+        btnEliminarDiaAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEliminarActividadActionPerformed(evt);
+                btnEliminarDiaAgendaActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Generar Reporte");
+        btnVerReporteDias.setText("Ver Dias Habilitados");
+        btnVerReporteDias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerReporteDiasActionPerformed(evt);
+            }
+        });
+
+        btnHabilitarDiaAgenda.setText("Habilitar Dia en Agenda");
+        btnHabilitarDiaAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHabilitarDiaAgendaActionPerformed(evt);
+            }
+        });
+
+        btnVerReporteActividades.setText("Ver Actividades de un Dia");
+        btnVerReporteActividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerReporteActividadesActionPerformed(evt);
+            }
+        });
+
+        btnEliminarActividadDia.setText("Eliminar Actividad");
+        btnEliminarActividadDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActividadDiaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(136, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(123, 123, 123))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnAgregarActividad)
-                            .addComponent(BtnEliminarActividad)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(70, 70, 70))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(123, 123, 123))
+                            .addComponent(btnEliminarActividadDia, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnVerReporteActividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnVerReporteDias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAgregarActividad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnHabilitarDiaAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnEliminarDiaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(143, 143, 143))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addGap(51, 51, 51)
                 .addComponent(jLabel1)
-                .addGap(33, 33, 33)
-                .addComponent(BtnAgregarActividad)
                 .addGap(18, 18, 18)
-                .addComponent(BtnEliminarActividad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addComponent(btnHabilitarDiaAgenda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAgregarActividad)
+                .addGap(10, 10, 10)
+                .addComponent(btnVerReporteDias)
+                .addGap(8, 8, 8)
+                .addComponent(btnVerReporteActividades)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminarDiaAgenda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminarActividadDia)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActividadActionPerformed
+    private void btnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActividadActionPerformed
         // TODO add your handling code here:
          VentanaAgregarActividad ventanaAgregar = new VentanaAgregarActividad(this.actividades);
         ventanaAgregar.setLocationRelativeTo(null);
         ventanaAgregar.setVisible(true);
-    }//GEN-LAST:event_BtnAgregarActividadActionPerformed
+    }//GEN-LAST:event_btnAgregarActividadActionPerformed
 
-    private void BtnEliminarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActividadActionPerformed
+    private void btnEliminarDiaAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDiaAgendaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BtnEliminarActividadActionPerformed
+    }//GEN-LAST:event_btnEliminarDiaAgendaActionPerformed
+
+    private void btnHabilitarDiaAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHabilitarDiaAgendaActionPerformed
+        // TODO add your handling code here:
+        VentanaHabilitarDiaAgenda ventanaHabilitar = new VentanaHabilitarDiaAgenda(this.actividades);
+        ventanaHabilitar.setLocationRelativeTo(null);
+        ventanaHabilitar.setVisible(true);
+                                                      
+    }//GEN-LAST:event_btnHabilitarDiaAgendaActionPerformed
+
+    private void btnVerReporteDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerReporteDiasActionPerformed
+        // TODO add your handling code here:
+        VentanaReporteDias ventanaReporte = new VentanaReporteDias(actividades);
+        ventanaReporte.setLocationRelativeTo(null);
+        ventanaReporte.setVisible(true);
+        
+    }//GEN-LAST:event_btnVerReporteDiasActionPerformed
+
+    private void btnVerReporteActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerReporteActividadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerReporteActividadesActionPerformed
+
+    private void btnEliminarActividadDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActividadDiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarActividadDiaActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnAgregarActividad;
-    private javax.swing.JButton BtnEliminarActividad;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAgregarActividad;
+    private javax.swing.JButton btnEliminarActividadDia;
+    private javax.swing.JButton btnEliminarDiaAgenda;
+    private javax.swing.JButton btnHabilitarDiaAgenda;
+    private javax.swing.JButton btnVerReporteActividades;
+    private javax.swing.JButton btnVerReporteDias;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JToolBar jToolBar1;

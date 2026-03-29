@@ -9,13 +9,12 @@ import java.io.IOException;
 
 /**
  *
- * @author tomas
+ * @author Benjamin
  */
 public class Main {
 
     public static void main(String[] args) throws IOException {
         Agenda agendaActividades = null;
-        
         System.out.println("Iniciando sistema y leyendo archivo CSV....");
         agendaActividades = LectorCSV.leerDatosCSV();
         
@@ -24,11 +23,6 @@ public class Main {
         
         VentanaLauncher ventanaInicial = new VentanaLauncher(agendaActividades);
         ventanaInicial.setLocationRelativeTo(null);
-        ventanaInicial.setVisible(true);
-        
-        
-        
-        
-        
+        ventanaInicial.setVisible(true);   
     }
 }

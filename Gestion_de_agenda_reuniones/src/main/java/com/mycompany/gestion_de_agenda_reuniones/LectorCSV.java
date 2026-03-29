@@ -38,14 +38,15 @@ public class LectorCSV {
           }
           
           String[] datos = linea.split(",");
+          LocalDate fecha = LocalDate.parse(datos[4]);
+          actividades.agregarFecha(fecha);
+          
           String id = datos[1];
           String titulo = datos[2];
           String tipoActividad = datos[3];
-          LocalDate fecha = LocalDate.parse(datos[4]);       // ¡La magia de la conversión!
           LocalTime horaInicio = LocalTime.parse(datos[5]);
           LocalTime horaFin = LocalTime.parse(datos[6]);
           Actividad  act = null;
-          
           String tipoClase = datos[0];
           
           switch(tipoClase){
