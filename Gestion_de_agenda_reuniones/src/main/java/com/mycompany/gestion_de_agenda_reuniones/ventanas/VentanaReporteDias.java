@@ -6,6 +6,10 @@
 package com.mycompany.gestion_de_agenda_reuniones.ventanas;
 
 import com.mycompany.gestion_de_agenda_reuniones.Agenda;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +23,7 @@ public class VentanaReporteDias extends javax.swing.JFrame {
     public VentanaReporteDias(Agenda actividades) {
         initComponents();
         this.actividades = actividades;
+        cargarTablaDias();
     }
 
     /** This method is called from within the constructor to
@@ -31,22 +36,19 @@ public class VentanaReporteDias extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblFechasHabilitadas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblFechasHabilitadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Fechas Habilitadas"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblFechasHabilitadas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,11 +67,33 @@ public class VentanaReporteDias extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+    private void cargarTablaDias() {
+        // 1. Extraemos el "cerebro" (Modelo) de tu tabla visual
+        DefaultTableModel modelo = (DefaultTableModel) tblFechasHabilitadas.getModel();
+        
+        // 2. ¡Vital! Limpiamos la tabla poniéndole 0 filas. 
+        // Así evitamos duplicados si el usuario presiona un botón de "Actualizar"
+        modelo.setRowCount(0);
+        
+        // 3. Traemos las fechas de tu Agenda (que ya vienen ordenadas si usaste el TreeMap)
+        List<LocalDate> fechas = actividades.getDiasHabilitados();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        // 4. Recorremos la lista y creamos las filas
+        for (LocalDate fecha : fechas) {
+            String fechaTexto = fecha.format(formato);
+            
+            // Para inyectar una fila, el modelo exige un Arreglo de Objetos (Object[]).
+            // Como nuestra tabla tiene 1 sola columna, el arreglo lleva 1 solo dato.
+            modelo.addRow(new Object[]{ fechaTexto }); 
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblFechasHabilitadas;
     // End of variables declaration//GEN-END:variables
 
 }
