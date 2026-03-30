@@ -43,7 +43,7 @@ public class LectorCSV {
           
           String id = datos[1];
           String titulo = datos[2];
-          String tipoActividad = datos[3];
+          String tipoActividad = datos[3].toLowerCase();
           LocalTime horaInicio = LocalTime.parse(datos[5]);
           LocalTime horaFin = LocalTime.parse(datos[6]);
           Actividad  act = null;
@@ -51,12 +51,12 @@ public class LectorCSV {
           
           switch(tipoClase){
               
-              case "REUNION":
+              case "reunion":
                   String anfitrion = datos[10];
                   act = new Reunion(id ,titulo , tipoActividad , fecha , horaInicio, horaFin, anfitrion);
                   break;
               
-              case "CLASE":
+              case "clase":
                   String sala = datos[7];
                   String profesor = datos[8];
                   String asignatura = datos[9];
@@ -64,7 +64,7 @@ public class LectorCSV {
                   act = new ClaseUniversitaria(id ,titulo , tipoActividad , fecha , horaInicio, horaFin, sala , profesor , asignatura);
                   break;
               
-              case "EVALUACION":
+              case "evaluacion":
                   double ponderacion = Double.parseDouble(datos[11]);
                   String temario = datos[12];
                   boolean esGrupal = Boolean.parseBoolean(datos[13]);

@@ -264,19 +264,19 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         
         String id = txtId.getText();
         String titulo = txtTitulo.getText();
-        String tipoActividad = cbxTipoActividad.getSelectedItem().toString();
+        String tipoActividad = cbxTipoActividad.getSelectedItem().toString().toLowerCase();
         LocalTime hrInicio =LocalTime.parse( txtHrInicio.getText());
         LocalTime hrFinal =LocalTime.parse( txtHrFinal.getText());
         Actividad newAct = null;
         
         switch(tipoActividad){
             
-            case "Reunion":
+            case "reunion":
                 String anfitrion = txtAnfitrion.getText();
                 newAct = new Reunion(id , titulo , tipoActividad , fechaFinal , hrInicio , hrFinal , anfitrion);
                 break;
             
-            case"Clase Universitaria":
+            case"clase Universitaria":
                 String asignatura = txtAsignatura.getText();
                 String profesor = txtProfesor.getText();
                 String sala = txtSala.getText();
@@ -284,7 +284,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
                 newAct = new ClaseUniversitaria(id , titulo , tipoActividad , fechaFinal , hrInicio , hrFinal , asignatura , profesor , sala);
                 break;
                 
-            case"Evaluacion":
+            case"evaluacion":
                 Double pondNota = Double.parseDouble(txtPonderacionNota.getText());
                 String temario = txtTemario.getText();
                 Boolean esGrupal = chbxEsGrupal.isSelected();

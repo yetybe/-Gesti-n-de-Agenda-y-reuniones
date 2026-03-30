@@ -24,6 +24,7 @@ public class VentanaReporteDias extends javax.swing.JFrame {
         initComponents();
         this.actividades = actividades;
         cargarTablaDias();
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -35,8 +36,15 @@ public class VentanaReporteDias extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFechasHabilitadas = new javax.swing.JTable();
+        btnSalir = new javax.swing.JButton();
+
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,24 +53,43 @@ public class VentanaReporteDias extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Fechas Habilitadas"
+                "Fechas Habilitadas", "Cantidad de Actividades"
             }
         ));
         jScrollPane1.setViewportView(tblFechasHabilitadas);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSalir)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -82,16 +109,20 @@ public class VentanaReporteDias extends javax.swing.JFrame {
         
         // 4. Recorremos la lista y creamos las filas
         for (LocalDate fecha : fechas) {
+            int numAct = actividades.getSizeActividades(fecha);
             String fechaTexto = fecha.format(formato);
             
             // Para inyectar una fila, el modelo exige un Arreglo de Objetos (Object[]).
             // Como nuestra tabla tiene 1 sola columna, el arreglo lleva 1 solo dato.
-            modelo.addRow(new Object[]{ fechaTexto }); 
+            modelo.addRow(new Object[]{ fechaTexto , numAct }); 
         }
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblFechasHabilitadas;
     // End of variables declaration//GEN-END:variables

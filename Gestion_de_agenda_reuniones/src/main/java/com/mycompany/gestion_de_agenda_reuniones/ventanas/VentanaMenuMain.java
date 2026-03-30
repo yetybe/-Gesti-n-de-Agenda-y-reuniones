@@ -107,7 +107,7 @@ public class VentanaMenuMain extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
+                        .addGap(160, 160, 160)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEliminarActividadDia, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -117,9 +117,9 @@ public class VentanaMenuMain extends javax.swing.JFrame {
                                 .addComponent(btnHabilitarDiaAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnEliminarDiaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
+                        .addGap(125, 125, 125)
                         .addComponent(jLabel1)))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,14 +165,18 @@ public class VentanaMenuMain extends javax.swing.JFrame {
 
     private void btnVerReporteDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerReporteDiasActionPerformed
         // TODO add your handling code here:
-        VentanaReporteDias ventanaReporte = new VentanaReporteDias(actividades);
-        ventanaReporte.setLocationRelativeTo(null);
-        ventanaReporte.setVisible(true);
+        VentanaReporteDias ventanaReporteDias = new VentanaReporteDias(actividades);
+        ventanaReporteDias.setLocationRelativeTo(null);
+        ventanaReporteDias.setVisible(true);
         
     }//GEN-LAST:event_btnVerReporteDiasActionPerformed
 
     private void btnVerReporteActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerReporteActividadesActionPerformed
         // TODO add your handling code here:
+        VentanaReporteActividades ventanaReporteActividades = new VentanaReporteActividades(actividades);
+        ventanaReporteActividades.setLocationRelativeTo(null);
+        ventanaReporteActividades.setVisible(true);
+        
     }//GEN-LAST:event_btnVerReporteActividadesActionPerformed
 
     private void btnEliminarActividadDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActividadDiaActionPerformed

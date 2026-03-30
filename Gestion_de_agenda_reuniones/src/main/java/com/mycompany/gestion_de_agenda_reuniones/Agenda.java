@@ -48,6 +48,15 @@ public class Agenda {
         return lista;
     }
     
+    public int getSizeActividades(LocalDate fecha){
+        return mapaActividades.get(fecha).size();
+        
+    }
+    
+    public List<Actividad> getActividades(LocalDate fecha){
+        return mapaActividades.get(fecha);
+    }
+    
     public void eliminarActividad(LocalDate fecha, String id){
         List<Actividad> listaDelDia = mapaActividades.get(fecha);
         if (listaDelDia != null){
