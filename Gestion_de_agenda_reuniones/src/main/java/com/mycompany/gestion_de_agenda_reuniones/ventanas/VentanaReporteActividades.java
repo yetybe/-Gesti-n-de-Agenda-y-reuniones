@@ -48,6 +48,7 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
         brnMostrarActividad = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblActividades = new javax.swing.JTable();
+        btnSalir = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -75,45 +76,54 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
 
         tblActividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Hora Inicio", "Hora Final", "Tipo de Actividad", "Título / Nombre", "Detalles "
+                "Hora Inicio", "Hora Final", "Tipo de Actividad", "Título ", "Detalles "
             }
         ));
         jScrollPane2.setViewportView(tblActividades);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblPregunta)
-                .addGap(128, 128, 128))
+                .addComponent(btnSalir)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(146, 146, 146)
-                .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(brnMostrarActividad)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(343, 343, 343)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPregunta, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(brnMostrarActividad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(391, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
+                .addComponent(btnSalir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPregunta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(brnMostrarActividad))
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -130,21 +140,22 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
     private void brnMostrarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnMostrarActividadActionPerformed
         // TODO add your handling code here:
         String fechaSelec = cbxFechas.getSelectedItem().toString();
-        java.time.format.DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");        LocalDate fechaFinal = LocalDate.parse(fechaSelec, formato);
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
+        LocalDate fechaFinal = LocalDate.parse(fechaSelec, formato);
         List<Actividad> listaActividades = actividades.getActividades(fechaFinal);
         DefaultTableModel modelo = (DefaultTableModel) tblActividades.getModel();
+        modelo.setRowCount(0);
         
          for (Actividad actividad : listaActividades) {
             LocalTime horaInicio = actividad.getHoraInicio();
             LocalTime horaFin = actividad.getHoraFin();
-            String tipoActividad = actividad.getTipoActividad();
+            String tipoActividad = actividad.getTipoClase();
             String titulo = actividad.getTitulo();
-            System.out.println(tipoActividad);
             switch(tipoActividad){
                 case"REUNION":
                     Reunion auxReunion = (Reunion ) actividad;
-                    String anfitrion = auxReunion.getAnfitrion();
-                    modelo.addRow(new Object[]{ horaInicio , horaFin,tipoActividad.toUpperCase(), titulo , anfitrion });
+                    String detallesReunion = "Anfitrion: " + auxReunion.getAnfitrion();
+                    modelo.addRow(new Object[]{ horaInicio , horaFin,tipoActividad.toUpperCase(), titulo , detallesReunion });
                     break;
                     
                 case"CLASE":
@@ -165,6 +176,11 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_brnMostrarActividadActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -172,6 +188,7 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnMostrarActividad;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbxFechas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

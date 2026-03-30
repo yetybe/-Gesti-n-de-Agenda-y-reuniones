@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -273,15 +274,15 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
             
             case "REUNION":
                 String anfitrion = txtAnfitrion.getText();
-                newAct = new Reunion(tipoClase , id , titulo , tipoActividad , fechaFinal , hrInicio , hrFinal , anfitrion);
+                newAct = new Reunion(tipoClase , id , titulo  , fechaFinal , hrInicio , hrFinal , anfitrion);
                 break;
             
             case"CLASE UNIVERSITARIA":
                 String asignatura = txtAsignatura.getText();
                 String profesor = txtProfesor.getText();
                 String sala = txtSala.getText();
-                tipoActividad ="CLASE";
-                newAct = new ClaseUniversitaria(id , titulo , tipoActividad , fechaFinal , hrInicio , hrFinal , asignatura , profesor , sala);
+                tipoClase ="CLASE";
+                newAct = new ClaseUniversitaria(tipoClase , id , titulo  , fechaFinal , hrInicio , hrFinal , asignatura , profesor , sala);
                 break;
                 
             case"EVALUACION":
@@ -289,7 +290,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
                 String temario = txtTemario.getText();
                 Boolean esGrupal = chbxEsGrupal.isSelected();
                 
-                newAct = new Evaluacion(id , titulo , tipoActividad , fechaFinal , hrInicio , hrFinal , pondNota , temario , esGrupal);
+                newAct = new Evaluacion (tipoClase , id , titulo  , fechaFinal , hrInicio , hrFinal , pondNota , temario , esGrupal);
                 break;
                 
         }
@@ -297,7 +298,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         if(newAct != null){
             
             actividades.agregarActividad(newAct);
-            javax.swing.JOptionPane.showMessageDialog(this, "¡Actividad guardada con éxito!");
+            JOptionPane.showMessageDialog(this, "¡Actividad guardada con éxito!");
             this.dispose();
             
             

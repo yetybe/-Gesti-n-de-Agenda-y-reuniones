@@ -68,6 +68,21 @@ public class Agenda {
             }
         }     
     }
+    
+    public List<Actividad> eliminarFecha(LocalDate fecha){
+        return mapaActividades.remove(fecha);
+        
+        }
+    
+    public void eliminarActividadPorId(LocalDate fecha , String id){
+        List<Actividad> listActividad = mapaActividades.get(fecha);
+        for(Actividad actividad : listActividad){
+            if (actividad.getId().equals(id)){
+                listActividad.remove(actividad);
+            }
+            
+        }
+    }
  
     }
             

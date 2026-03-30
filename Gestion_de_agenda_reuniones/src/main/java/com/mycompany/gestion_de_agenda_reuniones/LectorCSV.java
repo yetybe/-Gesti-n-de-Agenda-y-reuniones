@@ -38,38 +38,37 @@ public class LectorCSV {
           }
           
           String[] datos = linea.split(",");
-          LocalDate fecha = LocalDate.parse(datos[4]);
+          LocalDate fecha = LocalDate.parse(datos[3]);
           actividades.agregarFecha(fecha);
           
           String tipoClase = datos[0];
           String id = datos[1];
           String titulo = datos[2];
-          String tipoActividad = datos[3];
-          LocalTime horaInicio = LocalTime.parse(datos[5]);
-          LocalTime horaFin = LocalTime.parse(datos[6]);
+          LocalTime horaInicio = LocalTime.parse(datos[4]);
+          LocalTime horaFin = LocalTime.parse(datos[5]);
           Actividad  act = null;
           
           switch(tipoClase){
               
               case "REUNION":
-                  String anfitrion = datos[10];
-                  act = new Reunion(id ,titulo , tipoActividad , fecha , horaInicio, horaFin, anfitrion);
+                  String anfitrion = datos[9];
+                  act = new Reunion(tipoClase , id ,titulo , fecha , horaInicio, horaFin, anfitrion);
                   break;
               
               case "CLASE":
-                  String sala = datos[7];
-                  String profesor = datos[8];
-                  String asignatura = datos[9];
+                  String sala = datos[6];
+                  String profesor = datos[7];
+                  String asignatura = datos[8];
                   
-                  act = new ClaseUniversitaria(id ,titulo , tipoActividad , fecha , horaInicio, horaFin, sala , profesor , asignatura);
+                  act = new ClaseUniversitaria(tipoClase ,id ,titulo , fecha , horaInicio, horaFin, sala , profesor , asignatura);
                   break;
               
               case "EVALUACION":
-                  double ponderacion = Double.parseDouble(datos[11]);
-                  String temario = datos[12];
-                  boolean esGrupal = Boolean.parseBoolean(datos[13]);
+                  double ponderacion = Double.parseDouble(datos[10]);
+                  String temario = datos[11];
+                  boolean esGrupal = Boolean.parseBoolean(datos[12]);
                   
-                  act = new Evaluacion(id ,titulo , tipoActividad , fecha , horaInicio, horaFin, ponderacion , temario , esGrupal);
+                  act = new Evaluacion(tipoClase , id ,titulo  , fecha , horaInicio, horaFin, ponderacion , temario , esGrupal);
                   break;
                   
               

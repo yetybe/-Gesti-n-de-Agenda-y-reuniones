@@ -15,11 +15,11 @@ public class ClaseUniversitaria extends Actividad {
     private String profesor;
     private String asignatura;
     
-    public ClaseUniversitaria(String tipoClase, String id, String titulo, String tipoActividad, LocalDate fecha, 
+    public ClaseUniversitaria(String tipoClase, String id, String titulo , LocalDate fecha, 
                    LocalTime horaInicio, LocalTime horaFin, 
                    String sala , String profesor , String asignatura  ){
         
-        super(tipoClase ,id , titulo , tipoActividad , fecha , horaInicio , horaFin);
+        super(tipoClase ,id , titulo , fecha , horaInicio , horaFin);
         this.sala = sala;
         this.profesor = profesor;
         this.asignatura = asignatura;

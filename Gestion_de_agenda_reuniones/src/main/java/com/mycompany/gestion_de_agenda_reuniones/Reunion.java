@@ -16,11 +16,11 @@ public class Reunion extends Actividad {
     
     private String anfitrion;
     
-    public Reunion(String tipoClase , String id, String titulo, String tipoActividad, LocalDate fecha, 
+    public Reunion(String tipoClase , String id, String titulo, LocalDate fecha, 
                    LocalTime horaInicio, LocalTime horaFin, 
                    String anfitrion) {
         
-        super(tipoClase , id , titulo , tipoActividad , fecha , horaInicio , horaFin);
+        super(tipoClase , id , titulo  , fecha , horaInicio , horaFin);
         this.anfitrion = anfitrion;
 
     }

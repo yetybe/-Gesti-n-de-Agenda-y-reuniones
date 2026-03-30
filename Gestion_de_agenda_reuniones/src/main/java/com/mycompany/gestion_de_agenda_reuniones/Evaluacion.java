@@ -16,12 +16,12 @@ public class Evaluacion  extends Actividad{
     private String temario;
     private boolean esGrupal;
     
-    public Evaluacion(String tipoClase , String id, String titulo, String tipoActividad, LocalDate fecha, 
+    public Evaluacion(String tipoClase , String id, String titulo , LocalDate fecha, 
                    LocalTime horaInicio, LocalTime horaFin, 
                    double ponderacionNota , String temario , boolean esGrupal){
         
         
-          super(tipoClase, id , titulo , tipoActividad , fecha , horaInicio , horaFin);
+          super(tipoClase, id , titulo , fecha , horaInicio , horaFin);
           this.ponderacionNota = ponderacionNota;
           this.esGrupal = esGrupal;
           this.temario = temario;
