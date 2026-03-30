@@ -12,6 +12,7 @@ import java.time.LocalTime;
  */
 public  abstract class Actividad {
     
+    protected String tipoClase;
     protected String id;
     protected String titulo;
     protected String tipoActividad;
@@ -19,7 +20,8 @@ public  abstract class Actividad {
     protected LocalTime horaInicio;
     protected LocalTime horaFin;
     
-    public Actividad(String id, String titulo, String tipoActividad, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin) {
+    public Actividad(String tipoClase, String id, String titulo, String tipoActividad, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin) {
+        this.tipoClase = tipoClase;
         this.id = id;
         this.titulo = titulo;
         this.tipoActividad = tipoActividad;

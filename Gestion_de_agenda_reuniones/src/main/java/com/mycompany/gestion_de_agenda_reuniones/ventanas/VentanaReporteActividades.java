@@ -91,16 +91,15 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblPregunta)
+                .addGap(128, 128, 128))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(lblPregunta))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(brnMostrarActividad)))
+                .addGap(146, 146, 146)
+                .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(brnMostrarActividad)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,11 +107,11 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(lblPregunta)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(brnMostrarActividad))
-                .addGap(29, 29, 29)
+                .addGap(35, 35, 35)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -131,8 +130,7 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
     private void brnMostrarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnMostrarActividadActionPerformed
         // TODO add your handling code here:
         String fechaSelec = cbxFechas.getSelectedItem().toString();
-        DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDate fechaFinal = LocalDate.parse(fechaSelec, formato);
+        java.time.format.DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");        LocalDate fechaFinal = LocalDate.parse(fechaSelec, formato);
         List<Actividad> listaActividades = actividades.getActividades(fechaFinal);
         DefaultTableModel modelo = (DefaultTableModel) tblActividades.getModel();
         
@@ -141,22 +139,25 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
             LocalTime horaFin = actividad.getHoraFin();
             String tipoActividad = actividad.getTipoActividad();
             String titulo = actividad.getTitulo();
+            System.out.println(tipoActividad);
             switch(tipoActividad){
-                case"reunion":
+                case"REUNION":
                     Reunion auxReunion = (Reunion ) actividad;
                     String anfitrion = auxReunion.getAnfitrion();
                     modelo.addRow(new Object[]{ horaInicio , horaFin,tipoActividad.toUpperCase(), titulo , anfitrion });
+                    break;
                     
-                case"clase":
+                case"CLASE":
                     ClaseUniversitaria auxClase = (ClaseUniversitaria) actividad;
                     String detallesClase =  "Prof: " + auxClase.getProfesor() + " | Sala: " + auxClase.getSala();
                     modelo.addRow(new Object[]{ horaInicio , horaFin,tipoActividad.toUpperCase(), titulo , detallesClase });
+                    break;
                     
-               case"evaluacion":
+               case"EVALUACION":
                    Evaluacion auxEvaluacion = (Evaluacion) actividad;
                    String detallesEvaluacion ="Ponderación: " + auxEvaluacion.getPonderacion() + "% | Temas: " + auxEvaluacion.getTemario();
-                    modelo.addRow(new Object[]{ horaInicio , horaFin,tipoActividad.toUpperCase(), titulo , detallesEvaluacion });
-
+                   modelo.addRow(new Object[]{ horaInicio , horaFin,tipoActividad.toUpperCase(), titulo , detallesEvaluacion });
+                   break;
                 
                     
             }

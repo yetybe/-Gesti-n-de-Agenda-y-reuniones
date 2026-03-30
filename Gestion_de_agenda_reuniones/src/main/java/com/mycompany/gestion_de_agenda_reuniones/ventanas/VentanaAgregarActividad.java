@@ -49,7 +49,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jToggleButton1 = new javax.swing.JToggleButton();
         txtId = new javax.swing.JTextField();
-        cbxTipoActividad = new javax.swing.JComboBox<>();
+        cbxTipoClase = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JTextField();
@@ -96,13 +96,13 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         });
         getContentPane().add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 78, 72, -1));
 
-        cbxTipoActividad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reunion", "Evaluacion", "Clase Universitaria" }));
-        cbxTipoActividad.addActionListener(new java.awt.event.ActionListener() {
+        cbxTipoClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reunion", "Evaluacion", "Clase Universitaria" }));
+        cbxTipoClase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxTipoActividadActionPerformed(evt);
+                cbxTipoClaseActionPerformed(evt);
             }
         });
-        getContentPane().add(cbxTipoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(248, 37, -1, -1));
+        getContentPane().add(cbxTipoClase, new org.netbeans.lib.awtextra.AbsoluteConstraints(248, 37, -1, -1));
 
         jLabel1.setText("¿Que actividad quieres agregar? :");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 40, -1, -1));
@@ -216,12 +216,12 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
              
     }
     
-    private void cbxTipoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActividadActionPerformed
+    private void cbxTipoClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoClaseActionPerformed
         // TODO add your handling code here:
         lblAnfitrion.setVisible(false);
         txtAnfitrion.setVisible(false);
         ocultarCamposEspecificos();
-        String option = cbxTipoActividad.getSelectedItem().toString();
+        String option = cbxTipoClase.getSelectedItem().toString();
         
         switch(option){
             
@@ -248,7 +248,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
                 break;
                 
         }
-    }//GEN-LAST:event_cbxTipoActividadActionPerformed
+    }//GEN-LAST:event_cbxTipoClaseActionPerformed
 
     private void chbxEsGrupalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbxEsGrupalActionPerformed
         // TODO add your handling code here:
@@ -264,27 +264,27 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         
         String id = txtId.getText();
         String titulo = txtTitulo.getText();
-        String tipoActividad = cbxTipoActividad.getSelectedItem().toString().toLowerCase();
+        String tipoClase = cbxTipoClase.getSelectedItem().toString().toUpperCase();
         LocalTime hrInicio =LocalTime.parse( txtHrInicio.getText());
         LocalTime hrFinal =LocalTime.parse( txtHrFinal.getText());
         Actividad newAct = null;
         
-        switch(tipoActividad){
+        switch(tipoClase){
             
-            case "reunion":
+            case "REUNION":
                 String anfitrion = txtAnfitrion.getText();
-                newAct = new Reunion(id , titulo , tipoActividad , fechaFinal , hrInicio , hrFinal , anfitrion);
+                newAct = new Reunion(tipoClase , id , titulo , tipoActividad , fechaFinal , hrInicio , hrFinal , anfitrion);
                 break;
             
-            case"clase Universitaria":
+            case"CLASE UNIVERSITARIA":
                 String asignatura = txtAsignatura.getText();
                 String profesor = txtProfesor.getText();
                 String sala = txtSala.getText();
-                
+                tipoActividad ="CLASE";
                 newAct = new ClaseUniversitaria(id , titulo , tipoActividad , fechaFinal , hrInicio , hrFinal , asignatura , profesor , sala);
                 break;
                 
-            case"evaluacion":
+            case"EVALUACION":
                 Double pondNota = Double.parseDouble(txtPonderacionNota.getText());
                 String temario = txtTemario.getText();
                 Boolean esGrupal = chbxEsGrupal.isSelected();
@@ -327,7 +327,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cbxFechasDisponibles;
-    private javax.swing.JComboBox<String> cbxTipoActividad;
+    private javax.swing.JComboBox<String> cbxTipoClase;
     private javax.swing.JCheckBox chbxEsGrupal;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
