@@ -76,11 +76,16 @@ public class Agenda {
     
     public void eliminarActividadPorId(LocalDate fecha , String id){
         List<Actividad> listActividad = mapaActividades.get(fecha);
+        Actividad actividadEncontrada = null;
         for(Actividad actividad : listActividad){
             if (actividad.getId().equals(id)){
-                listActividad.remove(actividad);
+                actividadEncontrada = actividad;
+                break;
             }
             
+        }
+        if(actividadEncontrada != null){
+          listActividad.remove(actividadEncontrada);
         }
     }
  
