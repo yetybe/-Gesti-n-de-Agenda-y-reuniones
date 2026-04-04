@@ -110,9 +110,14 @@ public class VentanaHabilitarDiaAgenda extends javax.swing.JFrame {
         String fecha = txtFecha.getText();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaFinal = LocalDate.parse(fecha, formato);
-        this.actividades.agregarFecha(fechaFinal);
-        javax.swing.JOptionPane.showMessageDialog(this, "¡Fecha guardada con éxito!");
-        this.dispose();
+        if(!actividades.agregarFecha(fechaFinal)){
+          javax.swing.JOptionPane.showMessageDialog(this, "Esta fecha ya fue agregada a la agenda , ingrese otra porfavor");
+        }
+        else{
+          javax.swing.JOptionPane.showMessageDialog(this, "¡Fecha guardada con éxito!");
+          this.dispose();
+        }
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**

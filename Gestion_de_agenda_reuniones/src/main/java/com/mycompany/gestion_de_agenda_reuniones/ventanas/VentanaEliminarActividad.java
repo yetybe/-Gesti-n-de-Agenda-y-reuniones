@@ -160,7 +160,7 @@ public class VentanaEliminarActividad extends javax.swing.JFrame {
 
         // Ahora vas a tu Agenda y buscas la actividad en esa fecha que tenga ese ID exacto para borrarla   
         actividades.eliminarActividadPorId(fechaFinal, idParaEliminar);
-        JOptionPane.showMessageDialog(this, "¡Actividad , con ID: " + idParaEliminar + "eliminada con exito!");
+        JOptionPane.showMessageDialog(this, "¡Actividad , con ID: " + idParaEliminar + " eliminada con exito!");
         this.dispose();
         
     }//GEN-LAST:event_btnEliminarActividad1ActionPerformed

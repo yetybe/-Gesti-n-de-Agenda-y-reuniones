@@ -213,6 +213,9 @@ public class VentanaMenuMain extends javax.swing.JFrame {
 
     private void btnEditarFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarFechasActionPerformed
         // TODO add your handling code here:
+        VentanaEditarFecha ventanaEditarFecha = new VentanaEditarFecha(actividades);
+        ventanaEditarFecha.setLocationRelativeTo(null);
+        ventanaEditarFecha.setVisible(true);
     }//GEN-LAST:event_btnEditarFechasActionPerformed
 
     private void btnEditarActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActividadesActionPerformed

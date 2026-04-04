@@ -23,10 +23,13 @@ public class Agenda {
         this.mapaActividades = new HashMap<>();
     }
     
-    public void agregarFecha(LocalDate fecha){
+    public boolean agregarFecha(LocalDate fecha){
           if (!mapaActividades.containsKey(fecha)) {
           mapaActividades.put(fecha, new ArrayList<>());
+          return true;
         }
+        return false;
+                
     }
     public void agregarActividad(Actividad act){
         if (act == null) return;
@@ -87,6 +90,10 @@ public class Agenda {
         if(actividadEncontrada != null){
           listActividad.remove(actividadEncontrada);
         }
+    }
+    
+    public void editarFecha(LocalDate fecha){
+        
     }
  
     }
