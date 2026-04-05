@@ -45,8 +45,12 @@ public  abstract class Actividad {
     public String getTipoClase(){return tipoClase;}
     
     // Métodos
-    // Método para usar sobreescrtitura en clases hijas
+    // Métodos para usar sobreescrtitura en clases hijas
     public String obtenerDetalles() {
         return "ID: " + getId() + " | " + getTitulo();
+    }
+    
+    public String exportarDatos() {
+    return tipoClase + "," + id + "," + titulo + "," + fecha + "," + horaInicio + "," + horaFin;
     }
 }
