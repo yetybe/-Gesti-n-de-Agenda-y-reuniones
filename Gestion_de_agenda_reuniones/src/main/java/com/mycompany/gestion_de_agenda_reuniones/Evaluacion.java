@@ -62,9 +62,4 @@ public class Evaluacion  extends Actividad{
         return super.obtenerDetalles() + " | Ponderación: " + ponderacionNota + "% (" + modo + ")";
     }
     
-    // Sobreescritura de método exportarDatos
-    @Override
-    public String exportarDatos() {
-        return super.exportarDatos() + "," + ponderacionNota + "," + temario + "," + esGrupal;
-    }
 }
