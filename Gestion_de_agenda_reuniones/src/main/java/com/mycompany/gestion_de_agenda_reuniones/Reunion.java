@@ -34,12 +34,6 @@ public class Reunion extends Actividad {
     public String obtenerDetalles() {
         return super.obtenerDetalles() + " | Anfitrión: " + anfitrion;
     }
-    
-    // Sobreescritura de método exportarDatos
-    @Override
-    public String exportarDatos() {
-        return super.exportarDatos() + "," + anfitrion;
-    }
 }
     
 
