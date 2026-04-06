@@ -67,4 +67,14 @@ public class Evaluacion  extends Actividad{
     public String exportarDatos() {
         return super.exportarDatos() + "," + ponderacionNota + "," + temario + "," + esGrupal;
     }
+    public void editarTemario(String nuevoTemario){
+        this.temario = nuevoTemario;
+    }
+    public void editarTemario(String temaExtra, boolean esAdicional) {
+    if (esAdicional) {
+        this.temario = this.temario + " | Extra: " + temaExtra;
+    } else {
+        this.temario = temaExtra; // Si esAdicional es false, funciona como el anterior
+    }
+}
 }

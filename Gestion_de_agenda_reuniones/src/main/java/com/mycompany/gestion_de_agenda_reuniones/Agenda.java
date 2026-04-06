@@ -72,6 +72,20 @@ public class Agenda {
         }     
     }
     
+    public Actividad buscarActividad(String id) {
+    for (List<Actividad> lista : mapaActividades.values()) {
+        for (Actividad act : lista) {
+            if (act.getId().equals(id)) return act;
+        }
+    }
+    return null;
+}
+    
+    public List<Actividad>buscarActividad(LocalDate fecha){
+        return mapaActividades.get(fecha); //lista del dia indicado
+    }
+   
+    
     public List<Actividad> eliminarFecha(LocalDate fecha){
         return mapaActividades.remove(fecha);
         
