@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
+import utilidades.GestorUI;
 
 /**
  *
@@ -23,7 +24,7 @@ public class VentanaEditarFecha extends javax.swing.JFrame {
     public VentanaEditarFecha(Agenda actividades) {
         initComponents();
         this.actividades = actividades;
-        cargarFechas();
+        GestorUI.cargarFechasComboBox(cbxFechas, actividades);
     }
 
     /**
@@ -42,7 +43,7 @@ public class VentanaEditarFecha extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Escoga la fecha que quiera editar:");
 
@@ -78,14 +79,13 @@ public class VentanaEditarFecha extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(110, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88))
+                        .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -95,12 +95,13 @@ public class VentanaEditarFecha extends javax.swing.JFrame {
                                 .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnActualizar)))
-                        .addGap(98, 98, 98))))
+                        .addGap(10, 10, 10)))
+                .addGap(83, 83, 83))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
+                .addGap(81, 81, 81)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -111,20 +112,12 @@ public class VentanaEditarFecha extends javax.swing.JFrame {
                     .addComponent(btnActualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(btnGuardar)
-                .addGap(45, 45, 45))
+                .addGap(59, 59, 59))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cargarFechas(){
-          cbxFechas.removeAllItems();
-          DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
-          List<LocalDate> fechas = actividades.getDiasHabilitados();
-         for( LocalDate fecha : fechas ){
-         cbxFechas.addItem(fecha.format(formato));
-        }
-    }
     private void cbxFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFechasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxFechasActionPerformed

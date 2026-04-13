@@ -56,9 +56,17 @@ public class Agenda {
         
     }
     
-    public List<Actividad> getActividades(LocalDate fecha){
-        return mapaActividades.get(fecha);
+    public List<Actividad> obtenerTodoElCatalogo() {
+        List<Actividad> todasLasActividades = new ArrayList<>();
+    
+        for (List<Actividad> listaDiaria : mapaActividades.values()) {
+            todasLasActividades.addAll(listaDiaria); 
+        }
+    
+        return todasLasActividades;
     }
+    
+ 
     
     public void eliminarActividad(LocalDate fecha, String id){
         List<Actividad> listaDelDia = mapaActividades.get(fecha);
@@ -107,10 +115,16 @@ public class Agenda {
         if(listaAct != null){
             mapaActividades.put(fechaNueva, listaAct);
             mapaActividades.remove(fechaVieja);
-        }
+          }
         
 
+        }
+    
+    public List<Actividad> getActividades(LocalDate fecha){
+          return mapaActividades.get(fecha);
     }
+    
+
  
-    }
+}
             

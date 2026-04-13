@@ -39,7 +39,7 @@ public class VentanaHabilitarDiaAgenda extends javax.swing.JFrame {
         txtFecha = new javax.swing.JFormattedTextField();
         btnGuardar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Fecha :");
 

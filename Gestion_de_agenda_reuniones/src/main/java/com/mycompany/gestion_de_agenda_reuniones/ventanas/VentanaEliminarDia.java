@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
+import utilidades.GestorUI;
 
 /**
  *
@@ -24,7 +25,7 @@ public class VentanaEliminarDia extends javax.swing.JFrame {
     public VentanaEliminarDia(Agenda actividades) {
         initComponents();
         this.actividades = actividades;
-        cargarFechas();
+        GestorUI.cargarFechasComboBox(cbxFechas, actividades);
     }
 
     /**
@@ -41,7 +42,7 @@ public class VentanaEliminarDia extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("¿Quie fecha deseas eliminar de tu agenda?");
@@ -106,16 +107,6 @@ public class VentanaEliminarDia extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    private void cargarFechas(){
-
-         cbxFechas.removeAllItems();
-         DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
-         List<LocalDate> fechas = actividades.getDiasHabilitados();
-         for( LocalDate fecha : fechas ){
-         cbxFechas.addItem(fecha.format(formato));
-        
-        }
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

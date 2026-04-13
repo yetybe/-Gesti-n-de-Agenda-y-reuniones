@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
+import utilidades.GestorUI;
 
 /**
  *
@@ -28,7 +29,7 @@ public class VentanaEditarActividades extends javax.swing.JFrame {
         initComponents();
         this.actividades = actividades;
         ocultarCamposEspecificos();
-        cargarFechas();
+        GestorUI.cargarFechasComboBox(cbxFechas, actividades);
         txtId.setEditable(false);
     }
 
@@ -80,7 +81,7 @@ public class VentanaEditarActividades extends javax.swing.JFrame {
 
         jLabel11.setText("Pondercion nota:");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbxFechas.addActionListener(new java.awt.event.ActionListener() {
@@ -332,15 +333,7 @@ private void cargarCbxActividades(LocalDate fechaSelec){
     }
 }
 
-// Funcion que rellena el cbxFechas con las fechas de la agenda "actividades"
-private void cargarFechas(){
-          cbxFechas.removeAllItems();
-          DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
-          List<LocalDate> fechas = actividades.getDiasHabilitados();
-         for( LocalDate fecha : fechas ){
-         cbxFechas.addItem(fecha.format(formato));
-        }
-    }
+
 
 // Funcion que oculta los campos especificos de las subclases de actividad
 private void ocultarCamposEspecificos(){

@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
+import utilidades.GestorUI;
 
 /**
  *
@@ -24,7 +25,7 @@ public class VentanaEliminarActividad extends javax.swing.JFrame {
     public VentanaEliminarActividad(Agenda actividades) {
         initComponents();
         this.actividades = actividades;
-        cargarFechas();
+        GestorUI.cargarFechasComboBox(cbxFechas, actividades);
     }
 
     /**
@@ -44,7 +45,7 @@ public class VentanaEliminarActividad extends javax.swing.JFrame {
         btnEliminarActividad1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Elige una fecha de la agenda: ");
 
@@ -117,16 +118,6 @@ public class VentanaEliminarActividad extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cargarFechas(){
-         cbxFechas.removeAllItems();
-         DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
-         List<LocalDate> fechas = actividades.getDiasHabilitados();
-         for( LocalDate fecha : fechas ){
-         cbxFechas.addItem(fecha.format(formato));
-
-        }
-    }
          
     
     private void cargarActividadesCbx(LocalDate fecha){

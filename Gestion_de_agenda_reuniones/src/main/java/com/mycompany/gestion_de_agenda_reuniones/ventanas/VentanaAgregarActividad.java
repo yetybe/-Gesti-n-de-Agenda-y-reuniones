@@ -14,6 +14,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
+import utilidades.GestorUI;
 
 /**
  *
@@ -26,9 +27,11 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         initComponents();
         
         this.actividades = actividades;
-        cargarFechas();
+        GestorUI.cargarFechasComboBox(cbxFechas, actividades);
         this.setSize(461 , 342);
         ocultarCamposEspecificos();
+       
+
         
     }
     
@@ -74,7 +77,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         txtHrInicio = new javax.swing.JFormattedTextField();
         txtHrFinal = new javax.swing.JFormattedTextField();
-        cbxFechasDisponibles = new javax.swing.JComboBox<>();
+        cbxFechas = new javax.swing.JComboBox<>();
 
         jTextField9.setText("jTextField1");
 
@@ -86,7 +89,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
 
         jToggleButton1.setText("jToggleButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtId.addActionListener(new java.awt.event.ActionListener() {
@@ -178,26 +181,18 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         }
         getContentPane().add(txtHrFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 50, -1));
 
-        cbxFechasDisponibles.addActionListener(new java.awt.event.ActionListener() {
+        cbxFechas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxFechasDisponiblesActionPerformed(evt);
+                cbxFechasActionPerformed(evt);
             }
         });
-        getContentPane().add(cbxFechasDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 90, -1));
+        getContentPane().add(cbxFechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 90, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     
-  private void cargarFechas(){
-        cbxFechasDisponibles.removeAllItems();
-        DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        List<LocalDate> fechas = actividades.getDiasHabilitados();
-        System.out.println("ATENCIÓN: Intentando cargar fechas. El tamaño de la lista es: " + fechas.size());
-        for( LocalDate fecha : fechas ){
-         cbxFechasDisponibles.addItem(fecha.format(formato));
-        }
-    }
+
     
     private void ocultarCamposEspecificos(){
         
@@ -257,7 +252,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
         
-        String fecha = cbxFechasDisponibles.getSelectedItem().toString();
+        String fecha = cbxFechas.getSelectedItem().toString();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaFinal = LocalDate.parse(fecha, formato);
         actividades.agregarFecha(fechaFinal);
@@ -312,12 +307,12 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
 
-    private void cbxFechasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFechasDisponiblesActionPerformed
+    private void cbxFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFechasActionPerformed
         // TODO add your handling code here:
         
 
         
-    }//GEN-LAST:event_cbxFechasDisponiblesActionPerformed
+    }//GEN-LAST:event_cbxFechasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,7 +321,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox<String> cbxFechasDisponibles;
+    private javax.swing.JComboBox<String> cbxFechas;
     private javax.swing.JComboBox<String> cbxTipoClase;
     private javax.swing.JCheckBox chbxEsGrupal;
     private javax.swing.JFormattedTextField jFormattedTextField1;

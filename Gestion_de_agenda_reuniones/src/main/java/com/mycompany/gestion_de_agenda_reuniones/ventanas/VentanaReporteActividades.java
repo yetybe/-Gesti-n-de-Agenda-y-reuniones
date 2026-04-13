@@ -28,7 +28,7 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
     public VentanaReporteActividades(Agenda actividades) {
         initComponents();
         this.actividades = actividades;
-        cargarFechas();
+        cargarTablaActividades();
         
     }
 
@@ -43,12 +43,9 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        lblPregunta = new javax.swing.JLabel();
-        cbxFechas = new javax.swing.JComboBox<>();
-        brnMostrarActividad = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblActividades = new javax.swing.JTable();
-        btnSalir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,123 +60,86 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        lblPregunta.setText("¿De que fecha deseas ver las actividades?");
-
-        brnMostrarActividad.setText("Mostrar");
-        brnMostrarActividad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                brnMostrarActividadActionPerformed(evt);
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblActividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Hora Inicio", "Hora Final", "Tipo de Actividad", "Título ", "Detalles "
+                "Tipo de Actividad", "Hora Inicio", "Hora Final", "Título ", "Detalles"
             }
         ));
         jScrollPane2.setViewportView(tblActividades);
+        if (tblActividades.getColumnModel().getColumnCount() > 0) {
+            tblActividades.getColumnModel().getColumn(0).setPreferredWidth(120);
+            tblActividades.getColumnModel().getColumn(0).setMaxWidth(120);
+            tblActividades.getColumnModel().getColumn(1).setResizable(false);
+            tblActividades.getColumnModel().getColumn(1).setPreferredWidth(70);
+            tblActividades.getColumnModel().getColumn(2).setResizable(false);
+            tblActividades.getColumnModel().getColumn(2).setPreferredWidth(70);
+            tblActividades.getColumnModel().getColumn(3).setPreferredWidth(200);
+            tblActividades.getColumnModel().getColumn(4).setPreferredWidth(300);
+        }
 
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel1.setText("Reporte Actividades");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(343, 343, 343)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPregunta, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(brnMostrarActividad)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(391, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addGap(405, 405, 405))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSalir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPregunta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(brnMostrarActividad))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cargarFechas(){
-         cbxFechas.removeAllItems();
-         DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
-         List<LocalDate> fechas = actividades.getDiasHabilitados();
-         for( LocalDate fecha : fechas ){
-         cbxFechas.addItem(fecha.format(formato));
-        }
-    }
-    private void brnMostrarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnMostrarActividadActionPerformed
-        // TODO add your handling code here:
-        String fechaSelec = cbxFechas.getSelectedItem().toString();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
-        LocalDate fechaFinal = LocalDate.parse(fechaSelec, formato);
-        List<Actividad> listaActividades = actividades.getActividades(fechaFinal);
-        DefaultTableModel modelo = (DefaultTableModel) tblActividades.getModel();
-        modelo.setRowCount(0);
+    private void cargarTablaActividades(){
+          List<Actividad> catalogoCompleto = actividades.obtenerTodoElCatalogo();
+          DefaultTableModel modelo = (DefaultTableModel) tblActividades.getModel();
         
-         for (Actividad actividad : listaActividades) {
-            LocalTime horaInicio = actividad.getHoraInicio();
-            LocalTime horaFin = actividad.getHoraFin();
-            String tipoClase = actividad.getTipoClase();
-            String titulo = actividad.getTitulo();
+        
+        // 4. Recorremos la lista y creamos las filas
+        for (Actividad act : catalogoCompleto) {
+            String tipoClase = act.getTipoClase();
+            LocalTime horaInicio = act.getHoraInicio();
+            LocalTime horaFin = act.getHoraFin();
+            String titulo = act.getTitulo();
+            String detalles = null;
             switch(tipoClase){
                 case"REUNION":
-                    Reunion auxReunion = (Reunion ) actividad;
-                    String detallesReunion = "Anfitrion: " + auxReunion.getAnfitrion();
-                    modelo.addRow(new Object[]{ horaInicio , horaFin,tipoClase.toUpperCase(), titulo , detallesReunion });
+                    Reunion auxReunion = (Reunion)act;
+                    detalles = "Anfitrion: " + auxReunion.getAnfitrion();
+                    modelo.addRow(new Object[]{ tipoClase.toUpperCase(),horaInicio , horaFin, titulo , detalles });
                     break;
-                    
+                case"EVALUACION":
+                    Evaluacion auxEvaluacion = (Evaluacion)act;
+                    detalles ="Ponderación: " + auxEvaluacion.getPonderacion() + "% | Temas: " + auxEvaluacion.getTemario();
+                    modelo.addRow(new Object[]{ tipoClase.toUpperCase(),horaInicio , horaFin, titulo , detalles });
+                    break;
                 case"CLASE":
-                    ClaseUniversitaria auxClase = (ClaseUniversitaria) actividad;
-                    String detallesClase =  "Prof: " + auxClase.getProfesor() + " | Sala: " + auxClase.getSala();
-                    modelo.addRow(new Object[]{ horaInicio , horaFin,tipoClase.toUpperCase(), titulo , detallesClase });
+                    ClaseUniversitaria auxClase =(ClaseUniversitaria)act;
+                    detalles = "Prof: " + auxClase.getProfesor() + " | Sala: " + auxClase.getSala();
+                    modelo.addRow(new Object[]{ tipoClase.toUpperCase(),horaInicio , horaFin, titulo , detalles });
                     break;
-                    
-               case"EVALUACION":
-                   Evaluacion auxEvaluacion = (Evaluacion) actividad;
-                   String detallesEvaluacion ="Ponderación: " + auxEvaluacion.getPonderacion() + "% | Temas: " + auxEvaluacion.getTemario();
-                   modelo.addRow(new Object[]{ horaInicio , horaFin,tipoClase.toUpperCase(), titulo , detallesEvaluacion });
-                   break;
-                
                     
             }
-            
-        }
-    }//GEN-LAST:event_brnMostrarActividadActionPerformed
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
+        }
+    }
 
 
     /**
@@ -187,13 +147,10 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton brnMostrarActividad;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> cbxFechas;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lblPregunta;
     private javax.swing.JTable tblActividades;
     // End of variables declaration//GEN-END:variables
 }

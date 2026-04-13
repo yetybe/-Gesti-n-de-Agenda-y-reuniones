@@ -40,13 +40,13 @@ public class VentanaReporteDias extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFechasHabilitadas = new javax.swing.JTable();
-        btnSalir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
         jButton2.setText("jButton2");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblFechasHabilitadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,57 +58,43 @@ public class VentanaReporteDias extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblFechasHabilitadas);
 
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel1.setText("Reporte Fechas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSalir)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(143, 143, 143))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 17, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
      */
     
     private void cargarTablaDias() {
-        // 1. Extraemos el "cerebro" (Modelo) de tu tabla visual
+        
         DefaultTableModel modelo = (DefaultTableModel) tblFechasHabilitadas.getModel();
         
-        // 2. ¡Vital! Limpiamos la tabla poniéndole 0 filas. 
-        // Así evitamos duplicados si el usuario presiona un botón de "Actualizar"
+        //  Limpiamos la tabla poniéndole 0 filas. 
         modelo.setRowCount(0);
         
-        // 3. Traemos las fechas de tu Agenda (que ya vienen ordenadas si usaste el TreeMap)
+        // 3. Traemos las fechas de la Agenda 
         List<LocalDate> fechas = actividades.getDiasHabilitados();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
@@ -118,16 +104,15 @@ public class VentanaReporteDias extends javax.swing.JFrame {
             String fechaTexto = fecha.format(formato);
             
             // Para inyectar una fila, el modelo exige un Arreglo de Objetos (Object[]).
-            // Como nuestra tabla tiene 1 sola columna, el arreglo lleva 1 solo dato.
             modelo.addRow(new Object[]{ fechaTexto , numAct }); 
         }
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblFechasHabilitadas;
     // End of variables declaration//GEN-END:variables
