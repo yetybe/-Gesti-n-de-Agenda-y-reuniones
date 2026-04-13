@@ -149,25 +149,25 @@ public class VentanaReporteActividades extends javax.swing.JFrame {
          for (Actividad actividad : listaActividades) {
             LocalTime horaInicio = actividad.getHoraInicio();
             LocalTime horaFin = actividad.getHoraFin();
-            String tipoActividad = actividad.getTipoClase();
+            String tipoClase = actividad.getTipoClase();
             String titulo = actividad.getTitulo();
-            switch(tipoActividad){
+            switch(tipoClase){
                 case"REUNION":
                     Reunion auxReunion = (Reunion ) actividad;
                     String detallesReunion = "Anfitrion: " + auxReunion.getAnfitrion();
-                    modelo.addRow(new Object[]{ horaInicio , horaFin,tipoActividad.toUpperCase(), titulo , detallesReunion });
+                    modelo.addRow(new Object[]{ horaInicio , horaFin,tipoClase.toUpperCase(), titulo , detallesReunion });
                     break;
                     
                 case"CLASE":
                     ClaseUniversitaria auxClase = (ClaseUniversitaria) actividad;
                     String detallesClase =  "Prof: " + auxClase.getProfesor() + " | Sala: " + auxClase.getSala();
-                    modelo.addRow(new Object[]{ horaInicio , horaFin,tipoActividad.toUpperCase(), titulo , detallesClase });
+                    modelo.addRow(new Object[]{ horaInicio , horaFin,tipoClase.toUpperCase(), titulo , detallesClase });
                     break;
                     
                case"EVALUACION":
                    Evaluacion auxEvaluacion = (Evaluacion) actividad;
                    String detallesEvaluacion ="Ponderación: " + auxEvaluacion.getPonderacion() + "% | Temas: " + auxEvaluacion.getTemario();
-                   modelo.addRow(new Object[]{ horaInicio , horaFin,tipoActividad.toUpperCase(), titulo , detallesEvaluacion });
+                   modelo.addRow(new Object[]{ horaInicio , horaFin,tipoClase.toUpperCase(), titulo , detallesEvaluacion });
                    break;
                 
                     

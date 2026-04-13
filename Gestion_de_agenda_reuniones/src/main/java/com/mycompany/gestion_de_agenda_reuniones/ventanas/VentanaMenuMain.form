@@ -65,8 +65,8 @@
                           <Component id="btnVerReporteDias" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnAgregarActividad" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnHabilitarDiaAgenda" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnEditarActividades" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnEditarFechas" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnEditarActividades" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

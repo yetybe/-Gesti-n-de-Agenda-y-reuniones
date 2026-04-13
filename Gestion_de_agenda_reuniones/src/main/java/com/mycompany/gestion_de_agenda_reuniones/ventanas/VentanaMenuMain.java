@@ -134,8 +134,8 @@ public class VentanaMenuMain extends javax.swing.JFrame {
                             .addComponent(btnVerReporteDias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAgregarActividad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnHabilitarDiaAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEditarFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEditarActividades, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnEditarActividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditarFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(297, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -220,6 +220,9 @@ public class VentanaMenuMain extends javax.swing.JFrame {
 
     private void btnEditarActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActividadesActionPerformed
         // TODO add your handling code here:
+        VentanaEditarActividades ventanaEditActividades = new VentanaEditarActividades(actividades);
+         ventanaEditActividades.setLocationRelativeTo(null);
+        ventanaEditActividades.setVisible(true);
     }//GEN-LAST:event_btnEditarActividadesActionPerformed
 
     /**

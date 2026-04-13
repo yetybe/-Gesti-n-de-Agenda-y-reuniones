@@ -80,10 +80,6 @@ public class Agenda {
     }
     return null;
 }
-    
-    public List<Actividad>buscarActividad(LocalDate fecha){
-        return mapaActividades.get(fecha); //lista del dia indicado
-    }
    
     
     public List<Actividad> eliminarFecha(LocalDate fecha){
@@ -106,8 +102,14 @@ public class Agenda {
         }
     }
     
-    public void editarFecha(LocalDate fecha){
+    public void cambiarFechas(LocalDate fechaVieja , LocalDate fechaNueva){
+        List<Actividad>listaAct = mapaActividades.get(fechaVieja);
+        if(listaAct != null){
+            mapaActividades.put(fechaNueva, listaAct);
+            mapaActividades.remove(fechaVieja);
+        }
         
+
     }
  
     }

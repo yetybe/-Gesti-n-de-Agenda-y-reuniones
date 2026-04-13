@@ -25,7 +25,6 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
     public VentanaAgregarActividad(Agenda actividades) {
         initComponents();
         
-        
         this.actividades = actividades;
         cargarFechas();
         this.setSize(461 , 342);

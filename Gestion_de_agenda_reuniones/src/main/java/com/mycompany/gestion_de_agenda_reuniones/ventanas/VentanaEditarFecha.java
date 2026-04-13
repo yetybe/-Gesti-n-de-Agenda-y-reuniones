@@ -8,6 +8,7 @@ import com.mycompany.gestion_de_agenda_reuniones.Agenda;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -122,7 +123,6 @@ public class VentanaEditarFecha extends javax.swing.JFrame {
           List<LocalDate> fechas = actividades.getDiasHabilitados();
          for( LocalDate fecha : fechas ){
          cbxFechas.addItem(fecha.format(formato));
-
         }
     }
     private void cbxFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFechasActionPerformed
@@ -137,7 +137,13 @@ public class VentanaEditarFecha extends javax.swing.JFrame {
         // TODO add your handling code here:
         String fechaAEditar = txtFecha.getText();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
-        LocalDate fechaFinal = LocalDate.parse(fechaAEditar, formato);
+        LocalDate fechaTxt = LocalDate.parse(fechaAEditar, formato);
+        String fechaSelect = cbxFechas.getSelectedItem().toString();
+        LocalDate fechaCbx = LocalDate.parse(fechaSelect, formato);
+        actividades.cambiarFechas(fechaCbx , fechaTxt);
+         JOptionPane.showMessageDialog(this, "¡La fecha se ha cambiado con éxito!");
+         this.dispose();
+        
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
