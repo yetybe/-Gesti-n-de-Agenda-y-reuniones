@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.gestion_de_agenda_reuniones;
+import Excepciones.FechaInvalidaException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileInputStream;
@@ -37,10 +38,10 @@ public class LectorCSV {
               continue;
           }
           
-          String[] datos = linea.split(",");
-          LocalDate fecha = LocalDate.parse(datos[3]);
-          actividades.agregarFecha(fecha);
-          
+         String[] datos = linea.split(",");
+         LocalDate fecha = LocalDate.parse(datos[3]);
+         actividades.agregarFechaCSV(fecha);
+     
           String tipoClase = datos[0];
           String id = datos[1];
           String titulo = datos[2];
@@ -75,7 +76,7 @@ public class LectorCSV {
              
           }
           if ( act != null){
-                    actividades.agregarActividad(act);
+                    actividades.agregarActividadCSV(act);
           }
           
         }

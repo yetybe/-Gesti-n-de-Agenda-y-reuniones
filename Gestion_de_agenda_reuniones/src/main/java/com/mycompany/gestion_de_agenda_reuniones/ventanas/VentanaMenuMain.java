@@ -40,7 +40,7 @@ public class VentanaMenuMain extends javax.swing.JFrame {
         btnEditarActividades = new javax.swing.JButton();
         btnBuscarFecha = new javax.swing.JButton();
         btnBuscarActividad = new javax.swing.JButton();
-        btnBuscarActividad1 = new javax.swing.JButton();
+        btnIntensidadSemanal = new javax.swing.JButton();
 
         jToolBar1.setRollover(true);
 
@@ -70,7 +70,7 @@ public class VentanaMenuMain extends javax.swing.JFrame {
             }
         });
 
-        btnEliminarDiaAgenda.setText("Eliminar Dia en Agenda");
+        btnEliminarDiaAgenda.setText("Eliminar Fecha en Agenda");
         btnEliminarDiaAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarDiaAgendaActionPerformed(evt);
@@ -84,7 +84,7 @@ public class VentanaMenuMain extends javax.swing.JFrame {
             }
         });
 
-        btnHabilitarDiaAgenda.setText("Habilitar Dia en Agenda");
+        btnHabilitarDiaAgenda.setText("Habilitar Fecha en Agenda");
         btnHabilitarDiaAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHabilitarDiaAgendaActionPerformed(evt);
@@ -133,10 +133,10 @@ public class VentanaMenuMain extends javax.swing.JFrame {
             }
         });
 
-        btnBuscarActividad1.setText("Opcion unica");
-        btnBuscarActividad1.addActionListener(new java.awt.event.ActionListener() {
+        btnIntensidadSemanal.setText("Monitor de Intensidad Semana");
+        btnIntensidadSemanal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActividad1ActionPerformed(evt);
+                btnIntensidadSemanalActionPerformed(evt);
             }
         });
 
@@ -145,24 +145,25 @@ public class VentanaMenuMain extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnEliminarDiaAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminarActividadDia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVerReporteActividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVerReporteDias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregarActividad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHabilitarDiaAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditarActividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditarFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuscarFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuscarActividad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuscarActividad1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(224, 224, 224))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(208, 208, 208)
-                .addComponent(jLabel1)
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEliminarDiaAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEliminarActividadDia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVerReporteActividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVerReporteDias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAgregarActividad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnHabilitarDiaAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditarActividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditarFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscarFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscarActividad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnIntensidadSemanal, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(224, 224, 224))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(193, 193, 193))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +191,7 @@ public class VentanaMenuMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBuscarActividad)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscarActividad1)
+                .addComponent(btnIntensidadSemanal)
                 .addGap(36, 36, 36))
         );
 
@@ -271,9 +272,12 @@ public class VentanaMenuMain extends javax.swing.JFrame {
           ventanaBuscarActividad.setVisible(true);
     }//GEN-LAST:event_btnBuscarActividadActionPerformed
 
-    private void btnBuscarActividad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActividad1ActionPerformed
+    private void btnIntensidadSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntensidadSemanalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActividad1ActionPerformed
+        VentanaMonitorSemanal ventanaMonitorSemanal = new VentanaMonitorSemanal(actividades);
+        ventanaMonitorSemanal.setLocationRelativeTo(null);
+        ventanaMonitorSemanal.setVisible(true);
+    }//GEN-LAST:event_btnIntensidadSemanalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,13 +286,13 @@ public class VentanaMenuMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarActividad;
     private javax.swing.JButton btnBuscarActividad;
-    private javax.swing.JButton btnBuscarActividad1;
     private javax.swing.JButton btnBuscarFecha;
     private javax.swing.JButton btnEditarActividades;
     private javax.swing.JButton btnEditarFechas;
     private javax.swing.JButton btnEliminarActividadDia;
     private javax.swing.JButton btnEliminarDiaAgenda;
     private javax.swing.JButton btnHabilitarDiaAgenda;
+    private javax.swing.JButton btnIntensidadSemanal;
     private javax.swing.JButton btnVerReporteActividades;
     private javax.swing.JButton btnVerReporteDias;
     private javax.swing.JInternalFrame jInternalFrame1;

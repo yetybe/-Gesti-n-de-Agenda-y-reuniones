@@ -4,7 +4,12 @@
  */
 package com.mycompany.gestion_de_agenda_reuniones.ventanas;
 
+import com.mycompany.gestion_de_agenda_reuniones.Actividad;
 import com.mycompany.gestion_de_agenda_reuniones.Agenda;
+import com.mycompany.gestion_de_agenda_reuniones.ClaseUniversitaria;
+import com.mycompany.gestion_de_agenda_reuniones.Evaluacion;
+import com.mycompany.gestion_de_agenda_reuniones.Reunion;
+import java.time.LocalDate;
 import utilidades.GestorUI;
 
 /**
@@ -18,9 +23,13 @@ public class VentanaBuscarActividad extends javax.swing.JFrame {
      */
     private Agenda actividades;
     public VentanaBuscarActividad(Agenda a) {
+       //Inicializamos nuestroi objeto de la clase Agenda como los componentes de la ventana
         initComponents();
         actividades = a;
+         //Se utiliza el metodo statico cargarFechas() para poder llenar el cbxFechas con las fechas de la agenda
         GestorUI.cargarFechasComboBox(cbxFechas, actividades);
+        // Pintamos el fondo del área vacía de la tabla del mismo color gris (por defecto) de la ventana
+        jScrollPane1.getViewport().setBackground(new java.awt.Color(238, 238, 238));
     }
 
     /**
@@ -38,18 +47,31 @@ public class VentanaBuscarActividad extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblActividadBuscada = new javax.swing.JTable();
+        btnBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Escoga la fecha de la activiad que desea buscar :");
+        cbxFechas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFechasActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Escoga la actividad:");
+        jLabel1.setText("Seleccione una fecha:");
+
+        cbxActividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxActividadesActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Eliga la actividad:");
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel3.setText("Buscar Actividad");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblActividadBuscada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -65,60 +87,147 @@ public class VentanaBuscarActividad extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblActividadBuscada.setRowHeight(30);
+        jScrollPane1.setViewportView(tblActividadBuscada);
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(148, 148, 148))
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxActividades, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(cbxActividades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(btnBuscar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 9, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(162, 162, 162))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxActividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     
+    private void cbxActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxActividadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxActividadesActionPerformed
+
+    private void cbxFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFechasActionPerformed
+        // TODO add your handling code here:
+         LocalDate fecha = GestorUI.obtenerFechaDeComboBox(cbxFechas);
+         GestorUI.cargarActividadesComboBox(cbxActividades, actividades, fecha);
+    }//GEN-LAST:event_cbxFechasActionPerformed
+    
+     //Funcion que permitira rellenar la tblActividadBuscada , con la informacion de la actividad seleccionada en el cbxActividades
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+       
+         //Obtenemos el string de con los detalles de la actividad a buscar
+        String seleccion = cbxActividades.getSelectedItem().toString();
+            
+            // 2. Extraemos el ID de la actividad
+         String idExtraido = seleccion.substring(1, seleccion.indexOf("]"));
+            
+            // 3. Buscamos el objeto en la agenda
+         Actividad objEncontrado = actividades.buscarActividad(idExtraido);
+            
+            // 4. Se lo pasamos a la función que carga la tabla con los atributos de la actividad encontrada
+         cargarTablaActividades(objEncontrado);
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+   // OJO: Recuerda pasarle el objeto Actividad como parámetro
+    private void cargarTablaActividades(Actividad actividadEncontrada) {
+        
+        // Obtenemos el detalle de la tblActividadBuscada
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tblActividadBuscada.getModel();
+
+        // Limpiamos la tabla 
+        modelo.setRowCount(0);
+
+        if (actividadEncontrada == null) {
+            return;
+        }
+
+        // Formateamos la fecha(Para que no se vea con el formato de LocalDate)
+        java.time.format.DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaStr = actividadEncontrada.getFecha().format(formato);
+
+        // Llenamos la tabla con los atributos de la subclase(Los que heredan de la clase padre)
+        modelo.addRow(new Object[]{"ID", actividadEncontrada.getId()});
+        modelo.addRow(new Object[]{"Título", actividadEncontrada.getTitulo()});
+        modelo.addRow(new Object[]{"Fecha", fechaStr});
+        modelo.addRow(new Object[]{"Horario", actividadEncontrada.getHoraInicio() + " - " + actividadEncontrada.getHoraFin()});
+        modelo.addRow(new Object[]{"Tipo", actividadEncontrada.getTipoClase()});
+
+        // 5.LLenamos los atributos especificos para cada subclase 
+        switch (actividadEncontrada.getTipoClase()) {
+            
+            case "REUNION":
+                Reunion auxReunion = (Reunion) actividadEncontrada;
+                modelo.addRow(new Object[]{"Anfitrión", auxReunion.getAnfitrion()});
+                break;
+
+            case "CLASE":
+                ClaseUniversitaria auxClase = (ClaseUniversitaria) actividadEncontrada;
+                modelo.addRow(new Object[]{"Asignatura", auxClase.getAsignatura()});
+                modelo.addRow(new Object[]{"Profesor", auxClase.getProfesor()});
+                modelo.addRow(new Object[]{"Sala", auxClase.getSala()});
+                break;
+
+            case "EVALUACION":
+                Evaluacion auxEvaluacion= (Evaluacion) actividadEncontrada;
+                modelo.addRow(new Object[]{"Temario", auxEvaluacion.getTemario()});
+                modelo.addRow(new Object[]{"Ponderación", auxEvaluacion.getPonderacion() + "%"});
+                modelo.addRow(new Object[]{"¿Es Grupal?", auxEvaluacion.getEsGrupal() ? "Sí" : "No"}); 
+                break;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> cbxActividades;
     private javax.swing.JComboBox<String> cbxFechas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblActividadBuscada;
     // End of variables declaration//GEN-END:variables
 }

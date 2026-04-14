@@ -4,9 +4,11 @@
  */
 package com.mycompany.gestion_de_agenda_reuniones.ventanas;
 
+import Excepciones.FechaInvalidaException;
 import com.mycompany.gestion_de_agenda_reuniones.Agenda;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -107,17 +109,20 @@ public class VentanaHabilitarDiaAgenda extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        String fecha = txtFecha.getText();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaFinal = LocalDate.parse(fecha, formato);
-        if(!actividades.agregarFecha(fechaFinal)){
-          javax.swing.JOptionPane.showMessageDialog(this, "Esta fecha ya fue agregada a la agenda , ingrese otra porfavor");
+        try{
+         String fecha = txtFecha.getText();
+         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+         LocalDate fechaFinal = LocalDate.parse(fecha, formato);
+         actividades.agregarFecha(fechaFinal);
+         javax.swing.JOptionPane.showMessageDialog(this, "¡Fecha guardada con éxito!");
+         this.dispose();
+        } catch(FechaInvalidaException e){
+           JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", javax.swing.JOptionPane.WARNING_MESSAGE);
+        } catch(java.time.format.DateTimeParseException e){
+           JOptionPane.showMessageDialog(this, "Por favor, ingresa una fecha válida con el formato DD/MM/AAAA.", "Error de Formato", javax.swing.JOptionPane.ERROR_MESSAGE);
+           txtFecha.setText(null);
         }
-        else{
-          javax.swing.JOptionPane.showMessageDialog(this, "¡Fecha guardada con éxito!");
-          this.dispose();
-        }
-        
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**

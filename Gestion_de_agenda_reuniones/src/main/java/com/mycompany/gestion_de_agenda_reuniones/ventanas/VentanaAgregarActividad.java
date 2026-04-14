@@ -4,6 +4,7 @@
  */
 package com.mycompany.gestion_de_agenda_reuniones.ventanas;
 
+import Excepciones.CamposActividadException;
 import com.mycompany.gestion_de_agenda_reuniones.Agenda;
 import com.mycompany.gestion_de_agenda_reuniones.Actividad;
 import com.mycompany.gestion_de_agenda_reuniones.ClaseUniversitaria;
@@ -24,11 +25,13 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
 
     private Agenda actividades;
     public VentanaAgregarActividad(Agenda actividades) {
+        //Inicializamos nuestroi objeto de la clase Agenda como los componentes de la ventana
         initComponents();
-        
         this.actividades = actividades;
+        //Se utiliza el metodo statico cargarFechas() para poder llenar el cbxFechas con las fechas de la agenda
         GestorUI.cargarFechasComboBox(cbxFechas, actividades);
         this.setSize(461 , 342);
+        //Ocultamos los campos espeificos al iniciar la ventana
         ocultarCamposEspecificos();
        
 
@@ -165,7 +168,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, -1, -1));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, -1, -1));
 
         try {
             txtHrInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
@@ -193,7 +196,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
 
     
 
-    
+   //Funcion que permite ocultar los atributos especificos segun el tipo de clase (CLASE , EVALUACION Y REUNION).
     private void ocultarCamposEspecificos(){
         
         lblAsignatura.setVisible(false);
@@ -211,6 +214,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
              
     }
     
+    //Funcion que permite mostrar los atributos especificos segun el tipo de clase (CLASE , EVALUACION Y REUNION).
     private void cbxTipoClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoClaseActionPerformed
         // TODO add your handling code here:
         lblAnfitrion.setVisible(false);
@@ -249,58 +253,73 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_chbxEsGrupalActionPerformed
 
+    //Funcion que guarda en la agenda la nueva actividad que creo el usuario
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+         String id = txtId.getText();
+         String titulo = txtTitulo.getText();
+         String hrInicioStr = txtHrInicio.getText();
+         String hrFinalStr= txtHrInicio.getText();
+         
+         //Nos aseguramos de que el usuario haya rellenado los campos principales
+         if(id.isEmpty() || titulo.isEmpty() || hrInicioStr.isEmpty() || hrFinalStr.isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, rellena todos los campos obligatorios antes de guardar.", "Campos Incompletos", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; 
+         }
+        try{
+          //Obtenemos los atributos que el usuario coloco
+         String fecha = cbxFechas.getSelectedItem().toString();
+         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+         LocalDate fechaFinal = LocalDate.parse(fecha, formato); 
+         String tipoClase = cbxTipoClase.getSelectedItem().toString().toUpperCase();
+         LocalTime hrInicio =LocalTime.parse( hrInicioStr);
+         LocalTime hrFinal =LocalTime.parse( hrFinalStr);
+
+         Actividad newAct = null;
         
-        
-        String fecha = cbxFechas.getSelectedItem().toString();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaFinal = LocalDate.parse(fecha, formato);
-        actividades.agregarFecha(fechaFinal);
-        
-        String id = txtId.getText();
-        String titulo = txtTitulo.getText();
-        String tipoClase = cbxTipoClase.getSelectedItem().toString().toUpperCase();
-        LocalTime hrInicio =LocalTime.parse( txtHrInicio.getText());
-        LocalTime hrFinal =LocalTime.parse( txtHrFinal.getText());
-        Actividad newAct = null;
-        
-        switch(tipoClase){
-            
+         //Instancia la subclase correspondiente según el tipo de actividad seleccionado, utilizando los datos del formulario.
+         switch(tipoClase){
             case "REUNION":
-                String anfitrion = txtAnfitrion.getText();
-                newAct = new Reunion(tipoClase , id , titulo  , fechaFinal , hrInicio , hrFinal , anfitrion);
-                break;
+                  String anfitrion = txtAnfitrion.getText();
+                  newAct = new Reunion(tipoClase , id , titulo  , fechaFinal , hrInicio , hrFinal , anfitrion);
+                  break;
             
             case"CLASE UNIVERSITARIA":
-                String asignatura = txtAsignatura.getText();
-                String profesor = txtProfesor.getText();
-                String sala = txtSala.getText();
-                tipoClase ="CLASE";
-                newAct = new ClaseUniversitaria(tipoClase , id , titulo  , fechaFinal , hrInicio , hrFinal , asignatura , profesor , sala);
-                break;
+                  String asignatura = txtAsignatura.getText();
+                  String profesor = txtProfesor.getText();
+                  String sala = txtSala.getText();
+                  tipoClase ="CLASE";
+                  newAct = new ClaseUniversitaria(tipoClase , id , titulo  , fechaFinal , hrInicio , hrFinal , asignatura , profesor , sala);
+                  break;
                 
             case"EVALUACION":
-                Double pondNota = Double.parseDouble(txtPonderacionNota.getText());
-                String temario = txtTemario.getText();
-                Boolean esGrupal = chbxEsGrupal.isSelected();
+                  Double pondNota = Double.parseDouble(txtPonderacionNota.getText());
+                  String temario = txtTemario.getText();
+                  Boolean esGrupal = chbxEsGrupal.isSelected();
                 
-                newAct = new Evaluacion (tipoClase , id , titulo  , fechaFinal , hrInicio , hrFinal , pondNota , temario , esGrupal);
-                break;
+                  newAct = new Evaluacion (tipoClase , id , titulo  , fechaFinal , hrInicio , hrFinal , pondNota , temario , esGrupal);
+                  break;
                 
         }
         
+         //Si nuestra newAct fue creada correctamente , se inserta en el mapa Actividades y se imprime un mensaje en la ventana
         if(newAct != null){
             
             actividades.agregarActividad(newAct);
             JOptionPane.showMessageDialog(this, "¡Actividad guardada con éxito!");
             this.dispose();
+         }
             
+        } catch(CamposActividadException e){
+            //Atrapa errores relacionado a los campos que relleno el usuario 
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error de Guardado", javax.swing.JOptionPane.WARNING_MESSAGE);
+        } catch (java.time.format.DateTimeParseException e) {
+            // Atrapa errores si escriben mal las horas (inicio / final).
+            javax.swing.JOptionPane.showMessageDialog(this, "Revisa el formato de las horas. Debe ser HH:mm (ejemplo: 08:30 o 14:00).", "Error de Formato", javax.swing.JOptionPane.ERROR_MESSAGE);
             
-        }
-        
-        
-        
-        
+        } catch (NumberFormatException e) {
+            // Atrapa errores si escriben texto en la ponderación de la evaluación 
+            javax.swing.JOptionPane.showMessageDialog(this, "La ponderación de la nota debe ser un número válido (usa punto para decimales, ej: 25.5).", "Error Numérico", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed

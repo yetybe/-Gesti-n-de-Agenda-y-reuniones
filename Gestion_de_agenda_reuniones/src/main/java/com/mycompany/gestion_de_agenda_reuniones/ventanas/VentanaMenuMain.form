@@ -51,26 +51,29 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btnEliminarDiaAgenda" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnEliminarActividadDia" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnVerReporteActividades" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnVerReporteDias" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnAgregarActividad" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnHabilitarDiaAgenda" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnEditarActividades" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnEditarFechas" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnBuscarFecha" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnBuscarActividad" alignment="1" max="32767" attributes="0"/>
-                  <Component id="btnBuscarActividad1" min="-2" pref="197" max="-2" attributes="0"/>
+              <EmptySpace pref="225" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnEliminarDiaAgenda" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnEliminarActividadDia" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnVerReporteActividades" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnVerReporteDias" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnAgregarActividad" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnHabilitarDiaAgenda" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnEditarActividades" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnEditarFechas" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnBuscarFecha" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnBuscarActividad" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnIntensidadSemanal" min="-2" pref="197" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="210" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -100,7 +103,7 @@
               <EmptySpace max="32767" attributes="0"/>
               <Component id="btnBuscarActividad" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnBuscarActividad1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnIntensidadSemanal" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -126,7 +129,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnEliminarDiaAgenda">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Eliminar Dia en Agenda"/>
+        <Property name="text" type="java.lang.String" value="Eliminar Fecha en Agenda"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarDiaAgendaActionPerformed"/>
@@ -142,7 +145,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnHabilitarDiaAgenda">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Habilitar Dia en Agenda"/>
+        <Property name="text" type="java.lang.String" value="Habilitar Fecha en Agenda"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHabilitarDiaAgendaActionPerformed"/>
@@ -196,12 +199,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActividadActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnBuscarActividad1">
+    <Component class="javax.swing.JButton" name="btnIntensidadSemanal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Opcion unica"/>
+        <Property name="text" type="java.lang.String" value="Monitor de Intensidad Semana"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActividad1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIntensidadSemanalActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

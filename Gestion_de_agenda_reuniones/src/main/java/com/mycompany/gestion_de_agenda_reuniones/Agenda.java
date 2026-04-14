@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package com.mycompany.gestion_de_agenda_reuniones;
+import Excepciones.CamposActividadException;
+import Excepciones.FechaInvalidaException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +25,7 @@ public class Agenda {
         this.mapaActividades = new HashMap<>();
     }
     
-    public boolean agregarFecha(LocalDate fecha){
+    public boolean agregarFechaCSV(LocalDate fecha){
           if (!mapaActividades.containsKey(fecha)) {
           mapaActividades.put(fecha, new ArrayList<>());
           return true;
@@ -31,7 +33,20 @@ public class Agenda {
         return false;
                 
     }
-    public void agregarActividad(Actividad act){
+    
+    public void  agregarFecha(LocalDate fecha) throws FechaInvalidaException{
+        if (fecha.isBefore(LocalDate.now())) {
+            throw new FechaInvalidaException("Error crítico: No puedes agregar fechas en el pasado.");
+        }
+          if (!mapaActividades.containsKey(fecha)) {
+          mapaActividades.put(fecha, new ArrayList<>());
+
+        }else{
+              throw new FechaInvalidaException("Error crítico: No puedes agregar fechas que ya estan en la agenda");
+          }
+        
+    }
+    public void agregarActividadCSV(Actividad act){
         if (act == null) return;
         LocalDate fecha = act.getFecha();
         
@@ -41,9 +56,33 @@ public class Agenda {
         else{
             return;
         }
-        
     }
     
+    public Actividad buscarActividad(String id) {
+        for (List<Actividad> lista : mapaActividades.values()) {
+             for (Actividad act : lista) {
+                if (act.getId().equals(id)) return act;
+            }
+        }
+        return null;
+       }
+        
+    public void agregarActividad(Actividad act) throws CamposActividadException {
+        if (act == null){
+            throw new CamposActividadException("Error crítico: La actividad está vacía.");
+        }
+        
+        if (this.buscarActividad(act.getId()) != null){
+            throw new CamposActividadException("Error crítico: Ya existe una actividad con el ID " + act.getId());
+        }
+        
+        // 3. Extraer la fecha de la actividad
+        LocalDate fechaActividad = act.getFecha();
+
+        // 5. Agregamos la actividad a la lista de ese día
+        mapaActividades.get(fechaActividad).add(act);
+    }
+       
     public List<LocalDate> getDiasHabilitados() {
         List<LocalDate> lista =  new ArrayList<>(mapaActividades.keySet());
         java.util.Collections.sort(lista);
@@ -65,9 +104,7 @@ public class Agenda {
     
         return todasLasActividades;
     }
-    
- 
-    
+
     public void eliminarActividad(LocalDate fecha, String id){
         List<Actividad> listaDelDia = mapaActividades.get(fecha);
         if (listaDelDia != null){
@@ -79,17 +116,7 @@ public class Agenda {
             }
         }     
     }
-    
-    public Actividad buscarActividad(String id) {
-    for (List<Actividad> lista : mapaActividades.values()) {
-        for (Actividad act : lista) {
-            if (act.getId().equals(id)) return act;
-        }
-    }
-    return null;
-}
-   
-    
+
     public List<Actividad> eliminarFecha(LocalDate fecha){
         return mapaActividades.remove(fecha);
         
@@ -122,6 +149,30 @@ public class Agenda {
     
     public List<Actividad> getActividades(LocalDate fecha){
           return mapaActividades.get(fecha);
+    }
+    
+    // Esta funcion extrae del mapa la lista completa de actividades criticas durante una semana apartir de una fecha indicada.
+    public List<Actividad> obtenerSemanaCritica(LocalDate fechaInicio) {
+        
+        List<Actividad> actividadesCriticas = new ArrayList<>();
+        java.time.LocalDate limite = fechaInicio.plusDays(7); 
+        
+        for (LocalDate fecha : mapaActividades.keySet()) {
+            // Si la fecha está dentro de la ventana de 7 días...
+            if (!fecha.isBefore(fechaInicio) && !fecha.isAfter(limite)) {
+                
+                List<Actividad> listaDelDia = mapaActividades.get(fecha);
+                
+                for (Actividad act : listaDelDia) {
+                    // Solo guardamos a los "sospechosos" de causar estrés
+                    if (act instanceof Evaluacion || act instanceof Reunion) {
+                        actividadesCriticas.add(act);
+                    }
+                }
+            }
+        }
+        
+        return actividadesCriticas; // Retornamos la lista completa a la ventana
     }
     
 

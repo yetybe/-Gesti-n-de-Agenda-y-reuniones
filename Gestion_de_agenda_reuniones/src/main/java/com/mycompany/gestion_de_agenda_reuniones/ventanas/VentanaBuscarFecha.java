@@ -14,6 +14,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import utilidades.GestorUI;
 
 /**
  *
@@ -28,6 +29,7 @@ public class VentanaBuscarFecha extends javax.swing.JFrame {
     public VentanaBuscarFecha(Agenda a) {
         initComponents();
         actividades = a;
+        GestorUI.cargarFechasComboBox(cbxFechas, actividades);
     }
 
     /**
@@ -42,26 +44,15 @@ public class VentanaBuscarFecha extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtFecha = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblActividadesFecha = new javax.swing.JTable();
         btnBuscarFecha = new javax.swing.JButton();
+        cbxFechas = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel1.setText("Buscar Fecha");
-
-        try {
-            txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaActionPerformed(evt);
-            }
-        });
 
         tblActividadesFecha.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,21 +86,22 @@ public class VentanaBuscarFecha extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(btnBuscarFecha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(301, 301, 301))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscarFecha)
+                                .addGap(249, 249, 249))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(307, 307, 307))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,8 +110,8 @@ public class VentanaBuscarFecha extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarFecha))
+                    .addComponent(btnBuscarFecha)
+                    .addComponent(cbxFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -128,27 +120,11 @@ public class VentanaBuscarFecha extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaActionPerformed
-
     private void btnBuscarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarFechaActionPerformed
         // TODO add your handling code here:
-        try{
-          String fechaAEditar = txtFecha.getText();
-          DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
-          LocalDate fechaTxt = LocalDate.parse(fechaAEditar, formato);
-          List<Actividad> listAct = actividades.getActividades(fechaTxt);
-          if(listAct != null){
-              cargarTablaAct(listAct);
-          } else {
-                // LÍNEA 1: Mensaje cuando la fecha no tiene actividades
-                javax.swing.JOptionPane.showMessageDialog(this, "No hay actividades agendadas para esta fecha.", "Día Libre", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch(java.time.format.DateTimeParseException e){
-          javax.swing.JOptionPane.showMessageDialog(this, "La fecha ingresada no existe o está incompleta. Revisa el formato (DD/MM/AAAA).", "Error de Fecha", javax.swing.JOptionPane.WARNING_MESSAGE);
-           }
-     
+        LocalDate fecha = GestorUI.obtenerFechaDeComboBox(cbxFechas);
+        List<Actividad> listAct = actividades.getActividades(fecha);
+        cargarTablaAct(listAct);
     }//GEN-LAST:event_btnBuscarFechaActionPerformed
 
     public void cargarTablaAct(List<Actividad> listAct){
@@ -189,9 +165,9 @@ public class VentanaBuscarFecha extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarFecha;
+    private javax.swing.JComboBox<String> cbxFechas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblActividadesFecha;
-    private javax.swing.JFormattedTextField txtFecha;
     // End of variables declaration//GEN-END:variables
 }
