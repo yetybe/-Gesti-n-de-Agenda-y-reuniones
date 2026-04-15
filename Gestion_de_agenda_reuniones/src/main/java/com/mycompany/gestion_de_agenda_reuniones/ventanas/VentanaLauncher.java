@@ -4,6 +4,7 @@
  */
 package com.mycompany.gestion_de_agenda_reuniones.ventanas;
 import com.mycompany.gestion_de_agenda_reuniones.Agenda;
+import com.mycompany.gestion_de_agenda_reuniones.Terminal;
 
  
 
@@ -12,10 +13,6 @@ import com.mycompany.gestion_de_agenda_reuniones.Agenda;
  * @author tomas
  */
 public class VentanaLauncher extends javax.swing.JFrame {
-
-    /**
-     * Creates new form VentanaLauncher
-     */
     private Agenda actividades;
     public VentanaLauncher(Agenda agendaCargada) {
         initComponents();
@@ -86,7 +83,21 @@ public class VentanaLauncher extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void terminalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terminalBtnActionPerformed
-        // TODO add your handling code here:
+        if (this.actividades == null) {
+            System.out.println(">>> Error: La agenda no se ha cargado correctamente.");
+            return; 
+        }
+        
+        this.setVisible(false);
+        
+        try {
+            Terminal consola = new Terminal(this.actividades);
+            consola.iniciar(); 
+        } catch (Exception e) {
+            System.out.println(">>> Ocurrió un error en la terminal: " + e.getMessage());
+        } finally {
+            this.setVisible(true);
+        }
     }//GEN-LAST:event_terminalBtnActionPerformed
 
     private void ventanaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventanaBtnActionPerformed
