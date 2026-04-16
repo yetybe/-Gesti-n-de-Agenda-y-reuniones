@@ -151,15 +151,18 @@ public class Agenda {
           return mapaActividades.get(fecha);
     }
     
-    // Esta funcion extrae del mapa la lista completa de actividades criticas durante una semana apartir de una fecha indicada.
-    public List<Actividad> obtenerSemanaCritica(LocalDate fechaInicio) {
+    /*
+        Esta funcion extrae del mapa la lista completa de actividades criticas durante 
+        una semana desde una fecha inicial hasta una fecha final.
+    
+    */
+    public List<Actividad> obtenerActCriticas(LocalDate fechaInicio ,LocalDate fechaFinal) {
         
-        List<Actividad> actividadesCriticas = new ArrayList<>();
-        java.time.LocalDate limite = fechaInicio.plusDays(7); 
+          List<Actividad> actividadesCriticas = new ArrayList<>();
         
-        for (LocalDate fecha : mapaActividades.keySet()) {
+          for (LocalDate fecha : mapaActividades.keySet()) {
             // Si la fecha está dentro de la ventana de 7 días...
-            if (!fecha.isBefore(fechaInicio) && !fecha.isAfter(limite)) {
+            if (!fecha.isBefore(fechaInicio) && !fecha.isAfter(fechaFinal)) {
                 
                 List<Actividad> listaDelDia = mapaActividades.get(fecha);
                 

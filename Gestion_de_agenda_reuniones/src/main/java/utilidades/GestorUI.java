@@ -70,4 +70,15 @@ public class GestorUI {
         } 
     }
     
+    public static String extraerId(String itemComboBox) {
+        if (itemComboBox == null || !itemComboBox.contains("[")) return "";
+        
+        int inicio = itemComboBox.indexOf("[") + 1;
+        int fin = itemComboBox.indexOf("]");
+        
+        return itemComboBox.substring(inicio, fin);
+    }
+    
+    
+    
 }
