@@ -146,8 +146,10 @@ public class Agenda {
         
 
         }
-    
+
+
     public List<Actividad> buscarActividad(LocalDate fecha){
+
           return mapaActividades.get(fecha);
     }
     
@@ -177,8 +179,5 @@ public class Agenda {
         
         return actividadesCriticas; // Retornamos la lista completa a la ventana
     }
-    
-
- 
 }
             
