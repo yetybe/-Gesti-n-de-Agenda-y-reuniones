@@ -147,7 +147,7 @@ public class Agenda {
 
         }
     
-    public List<Actividad> getActividades(LocalDate fecha){
+    public List<Actividad> buscarActividad(LocalDate fecha){
           return mapaActividades.get(fecha);
     }
     

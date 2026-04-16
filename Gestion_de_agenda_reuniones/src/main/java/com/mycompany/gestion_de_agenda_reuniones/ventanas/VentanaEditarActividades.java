@@ -236,7 +236,7 @@ public class VentanaEditarActividades extends javax.swing.JFrame {
         if(cbxActividades.getSelectedItem() != null){
           String actividadDetalles= cbxActividades.getSelectedItem().toString();
           String tipoClase = extraerTipo(actividadDetalles);
-          String textoId =GestorUI.extraerId(actividadDetalles);
+          String textoId = GestorUI.extraerId(actividadDetalles);
           switch(tipoClase){
               case"REUNION":
                   Reunion auxReunion = (Reunion)actividades.buscarActividad(textoId);
@@ -331,6 +331,7 @@ public class VentanaEditarActividades extends javax.swing.JFrame {
     private void txtAnfitrionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnfitrionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnfitrionActionPerformed
+
 
     private void txtTemarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTemarioActionPerformed
         // TODO add your handling code here:
