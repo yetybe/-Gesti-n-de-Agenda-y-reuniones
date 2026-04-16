@@ -61,6 +61,6 @@ public class ClaseUniversitaria extends Actividad {
     // Sobreescritura de método exportarDatos
     @Override
     public String exportarDatos() {
-        return super.exportarDatos() + "," + sala + "," + profesor + "," + asignatura;
+        return tipoClase + "," + id + "," + titulo + "," + fecha + "," + horaInicio + "," + horaFin + "," + sala + "," + profesor + "," + asignatura + ",,,";
     }
 }

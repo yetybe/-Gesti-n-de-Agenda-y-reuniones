@@ -59,7 +59,7 @@ public class GestorUI {
         }
 
         // 2. Traemos la lista de ese día específico
-        List<Actividad> listaDelDia = actividades.getActividades(fecha);
+        List<Actividad> listaDelDia = actividades.buscarActividades(fecha);
 
         // 3. Verificamos que la lista exista y tenga elementos
         if (listaDelDia != null && !listaDelDia.isEmpty()) {

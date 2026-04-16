@@ -5,12 +5,19 @@
 package com.mycompany.gestion_de_agenda_reuniones;
 import Excepciones.FechaInvalidaException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -38,7 +45,7 @@ public class LectorCSV {
               continue;
           }
           
-         String[] datos = linea.split(",");
+         String[] datos = linea.split(",", -1);
          LocalDate fecha = LocalDate.parse(datos[3]);
          actividades.agregarFechaCSV(fecha);
      
@@ -52,22 +59,22 @@ public class LectorCSV {
           switch(tipoClase){
               
               case "REUNION":
-                  String anfitrion = datos[9];
+                  String anfitrion = (datos.length > 9 && !datos[9].isEmpty()) ? datos[9] : "";
                   act = new Reunion(tipoClase , id ,titulo , fecha , horaInicio, horaFin, anfitrion);
                   break;
               
               case "CLASE":
-                  String sala = datos[6];
-                  String profesor = datos[7];
-                  String asignatura = datos[8];
+                  String sala = (datos.length > 6 && !datos[6].isEmpty()) ? datos[6] : "";
+                  String profesor = (datos.length > 7 && !datos[7].isEmpty()) ? datos[7] : "";
+                  String asignatura = (datos.length > 8 && !datos[8].isEmpty()) ? datos[8] : "";
                   
                   act = new ClaseUniversitaria(tipoClase ,id ,titulo , fecha , horaInicio, horaFin, sala , profesor , asignatura);
                   break;
               
               case "EVALUACION":
-                  double ponderacion = Double.parseDouble(datos[10]);
-                  String temario = datos[11];
-                  boolean esGrupal = Boolean.parseBoolean(datos[12]);
+                  double ponderacion = (datos.length > 10 && !datos[10].isEmpty()) ? Double.parseDouble(datos[10]) : 0.0;
+                  String temario = (datos.length > 11 && !datos[11].isEmpty()) ? datos[11] : "";
+                  boolean esGrupal = (datos.length > 12 && !datos[12].isEmpty()) ? Boolean.parseBoolean(datos[12]) : false;
                   
                   act = new Evaluacion(tipoClase , id ,titulo  , fecha , horaInicio, horaFin, ponderacion , temario , esGrupal);
                   break;
@@ -84,6 +91,23 @@ public class LectorCSV {
         return actividades;
         
         
+    }
+    
+    public static void guardarDatosCSV(Agenda agenda) throws IOException {
+        BufferedWriter writer = Files.newBufferedWriter(Paths.get("datos_agenda.csv"), StandardCharsets.UTF_8);
+        writer.write("TipoClase,id,titulo,fecha,horaInicio,horaFin,sala,profesor,asignatura,anfitrion,ponderacionNota,temario,esGrupal\n");
+        
+        List<LocalDate> fechas = new ArrayList<>(agenda.getMapaActividades().keySet());
+        Collections.sort(fechas);
+        
+        for (LocalDate fecha : fechas) {
+            List<Actividad> actividades = agenda.buscarActividades(fecha);
+            for (Actividad act : actividades) {
+                writer.write(act.exportarDatos() + "\n");
+            }
+        }
+        
+        writer.close();
     }
     
 }

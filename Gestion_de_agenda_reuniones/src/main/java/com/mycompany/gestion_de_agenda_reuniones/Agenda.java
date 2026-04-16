@@ -25,6 +25,10 @@ public class Agenda {
         this.mapaActividades = new HashMap<>();
     }
     
+    public Map<LocalDate, List<Actividad>> getMapaActividades() {
+        return mapaActividades;
+    }
+    
     public boolean agregarFechaCSV(LocalDate fecha){
           if (!mapaActividades.containsKey(fecha)) {
           mapaActividades.put(fecha, new ArrayList<>());

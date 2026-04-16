@@ -121,7 +121,7 @@ public class VentanaEliminarActividad extends javax.swing.JFrame {
          
     
     private void cargarActividadesCbx(LocalDate fecha){
-         List<Actividad> listActividades = actividades.getActividades(fecha);
+         List<Actividad> listActividades = actividades.buscarActividades(fecha);
          for(Actividad actividad : listActividades){
              String detalles = "[" + actividad.getId() + "] " + actividad.getTipoClase() + " | " + actividad.getTitulo();
              cbxActividades.addItem(detalles);

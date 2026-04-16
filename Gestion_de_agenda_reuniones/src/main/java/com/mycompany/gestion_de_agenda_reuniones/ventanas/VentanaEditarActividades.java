@@ -322,7 +322,7 @@ public class VentanaEditarActividades extends javax.swing.JFrame {
 
 // Funcion que rellena el cbxActividades con las actividades de la fecha seleccionada en el cbxFechas
 private void cargarCbxActividades(LocalDate fechaSelec){
-    List<Actividad> listAct = actividades.getActividades(fechaSelec);
+    List<Actividad> listAct = actividades.buscarActividades(fechaSelec);
     cbxActividades.removeAllItems();
     for( int i = 0 ; i < listAct.size() ; i ++){
         Actividad aux = listAct.get(i);

@@ -65,7 +65,7 @@ public class Evaluacion  extends Actividad{
     // Sobreescritura de método exportarDatos
     @Override
     public String exportarDatos() {
-        return super.exportarDatos() + "," + ponderacionNota + "," + temario + "," + esGrupal;
+        return tipoClase + "," + id + "," + titulo + "," + fecha + "," + horaInicio + "," + horaFin + ",,,,," + ponderacionNota + "," + temario + "," + esGrupal;
     }
     public void editarTemario(String nuevoTemario){
         this.temario = nuevoTemario;

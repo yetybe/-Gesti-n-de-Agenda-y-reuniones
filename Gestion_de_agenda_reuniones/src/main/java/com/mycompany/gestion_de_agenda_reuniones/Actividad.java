@@ -51,6 +51,6 @@ public  abstract class Actividad {
     }
     
     public String exportarDatos() {
-    return tipoClase + "," + id + "," + titulo + "," + fecha + "," + horaInicio + "," + horaFin;
+    return tipoClase + "," + id + "," + titulo + "," + fecha + "," + horaInicio + "," + horaFin + ",,,,,,";
     }
 }

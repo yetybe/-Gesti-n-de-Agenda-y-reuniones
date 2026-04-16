@@ -38,7 +38,7 @@ public class Reunion extends Actividad {
     // Sobreescritura de método exportarDatos
     @Override
     public String exportarDatos() {
-        return super.exportarDatos() + "," + anfitrion;
+        return tipoClase + "," + id + "," + titulo + "," + fecha + "," + horaInicio + "," + horaFin + ",,,,," + anfitrion + ",,";
     }
 }
     
