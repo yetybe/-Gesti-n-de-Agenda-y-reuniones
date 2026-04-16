@@ -179,22 +179,301 @@ public class Terminal {
         }
     }
     
-    public void reporteFechas(){
+    public void reporteFechas() {
+        System.out.println("\n--- REPORTE DE FECHAS ---");
+        
+        java.util.List<LocalDate> fechas = agenda.getDiasHabilitados();
+    
+        if (fechas == null || fechas.isEmpty()) {
+            System.out.println("Error: No hay fechas registradas en el sistema en este momento.");
+            return;
+        }
+        
+        System.out.println("Fechas habilitadas actualmente:");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        for (int i = 0; i < fechas.size(); i++) {
+            System.out.println((i + 1) + ". " + fechas.get(i).format(formato));
+        }
+        
+        System.out.println("-------------------------");
     }
     
-    public void reporteActividades(){
+    public void reporteActividades() {
+        System.out.println("\n--- REPORTE DE ACTIVIDADES ---");
+        
+        java.util.List<Actividad> catalogoCompleto = agenda.obtenerTodoElCatalogo();
+        
+        if (catalogoCompleto == null || catalogoCompleto.isEmpty()) {
+            System.out.println(">>> No hay actividades registradas en la agenda.");
+            return;
+        }
+
+        for (Actividad act : catalogoCompleto) {
+            String tipoClase = act.getTipoClase();
+            java.time.LocalTime horaInicio = act.getHoraInicio();
+            java.time.LocalTime horaFin = act.getHoraFin();
+            String titulo = act.getTitulo();
+            String detalles = "";
+
+            switch (tipoClase) {
+                case "REUNION":
+                    Reunion auxReunion = (Reunion) act;
+                    detalles = "Anfitrión: " + auxReunion.getAnfitrion();
+                    break;
+                case "EVALUACION":
+                    Evaluacion auxEvaluacion = (Evaluacion) act;
+                    detalles = "Ponderación: " + auxEvaluacion.getPonderacion() + "% | Temas: " + auxEvaluacion.getTemario();
+                    break;
+                case "CLASE":
+                    ClaseUniversitaria auxClase = (ClaseUniversitaria) act;
+                    detalles = "Prof: " + auxClase.getProfesor() + " | Sala: " + auxClase.getSala();
+                    break;
+                default:
+                    detalles = "Sin detalles adicionales";
+                    break;
+            }
+
+            System.out.println(tipoClase.toUpperCase() + " | " + horaInicio + " - " + horaFin + " | " + titulo + " | " + detalles);
+        }
+        
+        System.out.println("------------------------------");
     }
     
-    public void eliminarFecha(){
+    public void eliminarFecha() {
+        System.out.println("\n--- ELIMINAR FECHA DE LA AGENDA ---");
+        
+        java.util.List<LocalDate> fechasDisponibles = agenda.getDiasHabilitados();
+        if (fechasDisponibles == null || fechasDisponibles.isEmpty()) {
+            System.out.println(">>> No hay fechas registradas en el sistema para eliminar.");
+            return;
+        }
+
+        System.out.println("(Ingrese '0' para cancelar)");
+        System.out.println("Ingrese la fecha que desea eliminar (dd/mm/aaaa):");
+        String input = sc.nextLine();
+
+        if (input.equals("0")) {
+            return;
+        }
+
+        try {
+            java.time.format.DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            java.time.LocalDate fechaFinal = java.time.LocalDate.parse(input, formato);
+
+            java.util.List<Actividad> actividadesBorradas = agenda.eliminarFecha(fechaFinal);
+
+            if (actividadesBorradas != null) {
+                System.out.println(">>> ¡Éxito! Fecha eliminada.");
+                System.out.println(">>> Se borraron " + actividadesBorradas.size() + " actividades junto con la fecha.");
+            } else {
+                System.out.println(">>> Error: La fecha " + input + " no está habilitada en la agenda.");
+            }
+
+        } catch (java.time.format.DateTimeParseException e) {
+            System.out.println(">>> Error: El formato es incorrecto. Recuerde usar dd/mm/aaaa (ej: 15/04/2026).");
+        } catch (Exception e) {
+            System.out.println(">>> Error inesperado: " + e.getMessage());
+        }
     }
     
-    public void eliminarActividad(){
+    public void eliminarActividad() {
+        System.out.println("\n--- ELIMINAR ACTIVIDAD ---");
+        System.out.println("Ingrese la fecha de la actividad (dd/mm/aaaa) o '0' para cancelar:");
+        String fechaStr = sc.nextLine();
+        
+        if (fechaStr.equals("0")) {
+            return;
+        }
+
+        try {
+            java.time.format.DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            java.time.LocalDate fechaFinal = java.time.LocalDate.parse(fechaStr, formato);
+
+            java.util.List<Actividad> listaActividades = agenda.buscarActividad(fechaFinal);
+
+            if (listaActividades == null || listaActividades.isEmpty()) {
+                System.out.println(">>> No hay actividades registradas para esta fecha.");
+                return;
+            }
+
+            System.out.println("\nActividades encontradas:");
+            for (Actividad act : listaActividades) {
+                System.out.println("[" + act.getId() + "] " + act.getTipoClase() + " | " + act.getTitulo());
+            }
+
+            System.out.println("\nIngrese el ID de la actividad a eliminar:");
+            String idParaEliminar = sc.nextLine();
+
+            boolean idExiste = false;
+            for (Actividad act : listaActividades) {
+                if (act.getId().equals(idParaEliminar)) {
+                    idExiste = true;
+                    break;
+                }
+            }
+
+            if (idExiste) {
+                agenda.eliminarActividadPorId(fechaFinal, idParaEliminar);
+                System.out.println(">>> ¡Actividad con ID: " + idParaEliminar + " eliminada con éxito!");
+            } else {
+                System.out.println(">>> Error: No se encontró ninguna actividad con el ID [" + idParaEliminar + "] en esta fecha.");
+            }
+
+        } catch (java.time.format.DateTimeParseException e) {
+            System.out.println(">>> Error: El formato es incorrecto. Recuerde usar dd/mm/aaaa.");
+        } catch (Exception e) {
+            System.out.println(">>> Error inesperado: " + e.getMessage());
+        }
     }
     
-    public void editarFechas(){
+    public void editarFechas() {
+        System.out.println("\n--- EDITAR FECHA ---");
+        
+        java.util.List<LocalDate> fechasDisponibles = agenda.getDiasHabilitados();
+        if (fechasDisponibles == null || fechasDisponibles.isEmpty()) {
+            System.out.println(">>> No hay fechas registradas en el sistema para editar.");
+            return;
+        }
+
+        System.out.println("Ingrese la fecha que desea modificar (dd/mm/aaaa) o '0' para cancelar:");
+        String fechaAntiguaStr = sc.nextLine();
+
+        if (fechaAntiguaStr.equals("0")) {
+            return;
+        }
+
+        try {
+            java.time.format.DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            java.time.LocalDate fechaAntigua = java.time.LocalDate.parse(fechaAntiguaStr, formato);
+
+            if (!fechasDisponibles.contains(fechaAntigua)) {
+                System.out.println(">>> Error: La fecha ingresada no existe en la agenda.");
+                return;
+            }
+
+            System.out.println("Ingrese la NUEVA fecha (dd/mm/aaaa):");
+            String fechaNuevaStr = sc.nextLine();
+            java.time.LocalDate fechaNueva = java.time.LocalDate.parse(fechaNuevaStr, formato);
+
+            if (fechasDisponibles.contains(fechaNueva)) {
+                System.out.println(">>> Error: La nueva fecha ya está registrada en la agenda.");
+                return;
+            }
+
+            agenda.cambiarFechas(fechaAntigua, fechaNueva);
+            System.out.println(">>> ¡La fecha se ha cambiado con éxito de " + fechaAntiguaStr + " a " + fechaNuevaStr + "!");
+
+        } catch (java.time.format.DateTimeParseException e) {
+            System.out.println(">>> Error: El formato es incorrecto. Recuerde usar dd/mm/aaaa.");
+        } catch (Exception e) {
+            System.out.println(">>> Error inesperado: " + e.getMessage());
+        }
     }
     
-    public void editarActividades(){
+    public void editarActividades() {
+        System.out.println("\n--- EDITAR ACTIVIDAD ---");
+        System.out.println("Ingrese la fecha de la actividad (dd/mm/aaaa) o '0' para cancelar:");
+        String fechaStr = sc.nextLine();
+        
+        if (fechaStr.equals("0")) {
+            return;
+        }
+
+        try {
+            java.time.format.DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            java.time.LocalDate fechaFinal = java.time.LocalDate.parse(fechaStr, formato);
+
+            java.util.List<Actividad> listaActividades = agenda.buscarActividad(fechaFinal);
+
+            if (listaActividades == null || listaActividades.isEmpty()) {
+                System.out.println(">>> No hay actividades registradas para esta fecha.");
+                return;
+            }
+
+            System.out.println("\nActividades encontradas:");
+            for (Actividad act : listaActividades) {
+                System.out.println("[" + act.getId() + "] " + act.getTipoClase() + " | " + act.getTitulo());
+            }
+
+            System.out.println("\nIngrese el ID de la actividad a editar:");
+            String idEditar = sc.nextLine();
+
+            Actividad actividadAEditar = null;
+            for (Actividad act : listaActividades) {
+                if (act.getId().equals(idEditar)) {
+                    actividadAEditar = act;
+                    break;
+                }
+            }
+
+            if (actividadAEditar == null) {
+                System.out.println(">>> Error: No se encontró ninguna actividad con el ID [" + idEditar + "].");
+                return;
+            }
+
+            System.out.println("Pulse ENTER sin escribir nada para mantener el valor actual.");
+            
+            System.out.println("Título actual (" + actividadAEditar.getTitulo() + "):");
+            String titulo = sc.nextLine();
+            if (!titulo.isEmpty()) actividadAEditar.setTitulo(titulo);
+
+            System.out.println("Hora Inicio actual (" + actividadAEditar.getHoraInicio() + "):");
+            String hInicio = sc.nextLine();
+            if (!hInicio.isEmpty()) actividadAEditar.setHoraInicio(java.time.LocalTime.parse(hInicio));
+
+            System.out.println("Hora Fin actual (" + actividadAEditar.getHoraFin() + "):");
+            String hFin = sc.nextLine();
+            if (!hFin.isEmpty()) actividadAEditar.setHoraFin(java.time.LocalTime.parse(hFin));
+
+            switch (actividadAEditar.getTipoClase()) {
+                case "REUNION":
+                    Reunion r = (Reunion) actividadAEditar;
+                    System.out.println("Anfitrión actual (" + r.getAnfitrion() + "):");
+                    String anfitrion = sc.nextLine();
+                    if (!anfitrion.isEmpty()) r.setAnfitrion(anfitrion);
+                    break;
+
+                case "CLASE":
+                    ClaseUniversitaria c = (ClaseUniversitaria) actividadAEditar;
+                    System.out.println("Profesor actual (" + c.getProfesor() + "):");
+                    String prof = sc.nextLine();
+                    if (!prof.isEmpty()) c.setProfesor(prof);
+                    
+                    System.out.println("Sala actual (" + c.getSala() + "):");
+                    String sala = sc.nextLine();
+                    if (!sala.isEmpty()) c.setSala(sala);
+                    
+                    System.out.println("Asignatura actual (" + c.getAsignatura() + "):");
+                    String asig = sc.nextLine();
+                    if (!asig.isEmpty()) c.setAsignatura(asig);
+                    break;
+
+                case "EVALUACION":
+                    Evaluacion e = (Evaluacion) actividadAEditar;
+                    System.out.println("Temario actual (" + e.getTemario() + "):");
+                    String temario = sc.nextLine();
+                    if (!temario.isEmpty()) e.setTemario(temario);
+                    
+                    System.out.println("Ponderación actual (" + e.getPonderacion() + "):");
+                    String pond = sc.nextLine();
+                    if (!pond.isEmpty()) e.setPNota(Double.parseDouble(pond));
+                    
+                    System.out.println("¿Es grupal? true/false: ");
+                    String grupal = sc.nextLine();
+                    if (!grupal.isEmpty()) e.setEsGrupal(Boolean.parseBoolean(grupal));
+                    break;
+            }
+
+            System.out.println(">>> ¡Actividad actualizada con éxito en la Agenda!");
+
+        } catch (java.time.format.DateTimeParseException e) {
+            System.out.println(">>> Error: Por favor, revisa el formato de las fechas u horas (HH:mm).");
+        } catch (NumberFormatException e) {
+            System.out.println(">>> Error: Por favor, ingresa solo números válidos en la Ponderación.");
+        } catch (Exception e) {
+            System.out.println(">>> Error inesperado: " + e.getMessage());
+        }
     }
     
     public void buscarFecha(){
