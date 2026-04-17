@@ -371,7 +371,109 @@ public class Terminal {
         }
     }
     
-    public void editarActividades(){
+    public void editarActividades() {
+        System.out.println("\n--- EDITAR ACTIVIDAD ---");
+        System.out.println("Ingrese la fecha de la actividad (dd/mm/aaaa) o '0' para cancelar:");
+        String fechaStr = sc.nextLine();
+        
+        if (fechaStr.equals("0")) {
+            return;
+        }
+
+        try {
+            java.time.format.DateTimeFormatter formato = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            java.time.LocalDate fechaFinal = java.time.LocalDate.parse(fechaStr, formato);
+
+            java.util.List<Actividad> listaActividades = agenda.buscarActividad(fechaFinal);
+
+            if (listaActividades == null || listaActividades.isEmpty()) {
+                System.out.println(">>> No hay actividades registradas para esta fecha.");
+                return;
+            }
+
+            System.out.println("\nActividades encontradas:");
+            for (Actividad act : listaActividades) {
+                System.out.println("[" + act.getId() + "] " + act.getTipoClase() + " | " + act.getTitulo());
+            }
+
+            System.out.println("\nIngrese el ID de la actividad a editar:");
+            String idEditar = sc.nextLine();
+
+            Actividad actividadAEditar = null;
+            for (Actividad act : listaActividades) {
+                if (act.getId().equals(idEditar)) {
+                    actividadAEditar = act;
+                    break;
+                }
+            }
+
+            if (actividadAEditar == null) {
+                System.out.println(">>> Error: No se encontró ninguna actividad con el ID [" + idEditar + "].");
+                return;
+            }
+
+            System.out.println("Pulse ENTER sin escribir nada para mantener el valor actual.");
+            
+            System.out.println("Título actual (" + actividadAEditar.getTitulo() + "):");
+            String titulo = sc.nextLine();
+            if (!titulo.isEmpty()) actividadAEditar.setTitulo(titulo);
+
+            System.out.println("Hora Inicio actual (" + actividadAEditar.getHoraInicio() + "):");
+            String hInicio = sc.nextLine();
+            if (!hInicio.isEmpty()) actividadAEditar.setHoraInicio(java.time.LocalTime.parse(hInicio));
+
+            System.out.println("Hora Fin actual (" + actividadAEditar.getHoraFin() + "):");
+            String hFin = sc.nextLine();
+            if (!hFin.isEmpty()) actividadAEditar.setHoraFin(java.time.LocalTime.parse(hFin));
+
+            switch (actividadAEditar.getTipoClase()) {
+                case "REUNION":
+                    Reunion r = (Reunion) actividadAEditar;
+                    System.out.println("Anfitrión actual (" + r.getAnfitrion() + "):");
+                    String anfitrion = sc.nextLine();
+                    if (!anfitrion.isEmpty()) r.setAnfitrion(anfitrion);
+                    break;
+
+                case "CLASE":
+                    ClaseUniversitaria c = (ClaseUniversitaria) actividadAEditar;
+                    System.out.println("Profesor actual (" + c.getProfesor() + "):");
+                    String prof = sc.nextLine();
+                    if (!prof.isEmpty()) c.setProfesor(prof);
+                    
+                    System.out.println("Sala actual (" + c.getSala() + "):");
+                    String sala = sc.nextLine();
+                    if (!sala.isEmpty()) c.setSala(sala);
+                    
+                    System.out.println("Asignatura actual (" + c.getAsignatura() + "):");
+                    String asig = sc.nextLine();
+                    if (!asig.isEmpty()) c.setAsignatura(asig);
+                    break;
+
+                case "EVALUACION":
+                    Evaluacion e = (Evaluacion) actividadAEditar;
+                    System.out.println("Temario actual (" + e.getTemario() + "):");
+                    String temario = sc.nextLine();
+                    if (!temario.isEmpty()) e.setTemario(temario);
+                    
+                    System.out.println("Ponderación actual (" + e.getPonderacion() + "):");
+                    String pond = sc.nextLine();
+                    if (!pond.isEmpty()) e.setPNota(Double.parseDouble(pond));
+                    
+                    System.out.println("¿Es grupal? true/false: ");
+                    String grupal = sc.nextLine();
+                    if (!grupal.isEmpty()) e.setEsGrupal(Boolean.parseBoolean(grupal));
+                    break;
+            }
+
+            System.out.println(">>> ¡Actividad actualizada con éxito en la Agenda!");
+
+        } catch (java.time.format.DateTimeParseException e) {
+            System.out.println(">>> Error: Por favor, revisa el formato de las fechas u horas (HH:mm).");
+        } catch (NumberFormatException e) {
+            System.out.println(">>> Error: Por favor, ingresa solo números válidos en la Ponderación.");
+        } catch (Exception e) {
+            System.out.println(">>> Error inesperado: " + e.getMessage());
+        }
     }
     
     public void buscarFecha(){
