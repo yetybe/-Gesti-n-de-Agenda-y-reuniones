@@ -57,4 +57,10 @@ public class ClaseUniversitaria extends Actividad {
     public String obtenerDetalles() {
         return super.obtenerDetalles() + " | Sala: " + sala + " | Prof: " + profesor;
     }
+    
+    // Sobreescritura de método exportarDatos
+    @Override
+    public String exportarDatos() {
+        return tipoClase + "," + id + "," + titulo + "," + fecha + "," + horaInicio + "," + horaFin + "," + sala + "," + profesor + "," + asignatura + ",,,";
+    }
 }

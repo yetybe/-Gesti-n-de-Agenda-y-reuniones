@@ -4,6 +4,8 @@
  */
 package com.mycompany.gestion_de_agenda_reuniones.ventanas;
 import com.mycompany.gestion_de_agenda_reuniones.Agenda;
+import com.mycompany.gestion_de_agenda_reuniones.LectorCSV;
+import java.io.IOException;
 
 /**
  *
@@ -16,6 +18,19 @@ public class VentanaMenuMain extends javax.swing.JFrame {
         initComponents();
         
         this.actividades = actividades;
+        
+        // Agregar listener para guardar datos al cerrar
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                try {
+                    LectorCSV.guardarDatosCSV(actividades);
+                    System.out.println("Datos guardados exitosamente.");
+                } catch (IOException e) {
+                    System.err.println("Error al guardar datos: " + e.getMessage());
+                }
+            }
+        });
     }
 
     /**
