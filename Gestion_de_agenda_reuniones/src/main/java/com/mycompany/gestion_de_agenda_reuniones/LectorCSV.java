@@ -101,7 +101,7 @@ public class LectorCSV {
         Collections.sort(fechas);
         
         for (LocalDate fecha : fechas) {
-            List<Actividad> actividades = agenda.buscarActividades(fecha);
+            List<Actividad> actividades = agenda.buscarActividad(fecha);
             for (Actividad act : actividades) {
                 writer.write(act.exportarDatos() + "\n");
             }
@@ -109,5 +109,5 @@ public class LectorCSV {
         
         writer.close();
     }
-    
+        
 }
