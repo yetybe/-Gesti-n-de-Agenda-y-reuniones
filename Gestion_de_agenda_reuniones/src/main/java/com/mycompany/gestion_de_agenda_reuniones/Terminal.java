@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class Terminal {
     private Agenda agenda;
@@ -476,15 +477,166 @@ public class Terminal {
         }
     }
     
-    public void buscarFecha(){
-    }
-    
-    public void buscarActividad(){
-    }
-    
-    public void monitorIntensidad(){
-    }
+public void buscarFecha() {
+        System.out.println("\n--- BUSCAR FECHA ---");
+        System.out.println("Ingrese la fecha a buscar (dd/mm/aaaa) o '0' para cancelar:");
+        String input = sc.nextLine();
+        
+        if (input.equals("0")) return;
 
+        try {
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fechaBuscada = LocalDate.parse(input, formato);
+
+            if (agenda.getDiasHabilitados().contains(fechaBuscada)) {
+                System.out.println(">>> ¡Éxito! La fecha " + input + " SÍ está habilitada en la Agenda.");
+                
+                // Verificamos si tiene actividades ese día
+                java.util.List<Actividad> lista = agenda.buscarActividad(fechaBuscada);
+                if (lista != null && !lista.isEmpty()) {
+                    System.out.println(">>> Tiene " + lista.size() + " actividad(es) programada(s) para este día.");
+                } else {
+                    System.out.println(">>> Actualmente tiene el día libre (0 actividades).");
+                }
+            } else {
+                System.out.println(">>> La fecha " + input + " NO está habilitada en la Agenda.");
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println(">>> Error: Formato incorrecto. Recuerde usar dd/mm/aaaa.");
+        }
+    }
+    
+    public void buscarActividad() {
+        System.out.println("\n--- BUSCAR ACTIVIDAD ---");
+        System.out.println("Ingrese la fecha de la actividad (dd/mm/aaaa) o '0' para cancelar:");
+        String input = sc.nextLine();
+        
+        if (input.equals("0")) return;
+
+        try {
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fecha = LocalDate.parse(input, formato);
+
+            java.util.List<Actividad> lista = agenda.buscarActividad(fecha);
+
+            if (lista == null || lista.isEmpty()) {
+                System.out.println(">>> No se encontraron actividades programadas para la fecha " + input + ".");
+                return;
+            }
+
+            // Mostramos el resumen de actividades del día
+            System.out.println("\n--- Actividades del " + input + " ---");
+            for (Actividad act : lista) {
+                System.out.println("ID: [" + act.getId() + "] | " + act.getHoraInicio() + " a " + act.getHoraFin() + " | " + act.getTitulo());
+            }
+
+            // Damos la opción de ver el detalle completo
+            System.out.println("\n¿Desea ver los detalles de alguna? Ingrese el ID (o '0' para salir):");
+            String idBusqueda = sc.nextLine();
+            if (idBusqueda.equals("0")) return;
+
+            Actividad encontrada = null;
+            for (Actividad act : lista) {
+                if (act.getId().equals(idBusqueda)) {
+                    encontrada = act;
+                    break;
+                }
+            }
+
+            if (encontrada != null) {
+                System.out.println("\n======== DETALLES DE LA ACTIVIDAD ========");
+                System.out.println("Título: " + encontrada.getTitulo());
+                System.out.println("Tipo: " + encontrada.getTipoClase());
+                System.out.println("Horario: " + encontrada.getHoraInicio() + " - " + encontrada.getHoraFin());
+
+                // Mostramos atributos específicos según el tipo de clase (Polimorfismo)
+                switch (encontrada.getTipoClase()) {
+                    case "REUNION":
+                        Reunion r = (Reunion) encontrada;
+                        System.out.println("Anfitrión: " + r.getAnfitrion());
+                        break;
+                    case "CLASE":
+                        ClaseUniversitaria c = (ClaseUniversitaria) encontrada;
+                        System.out.println("Asignatura: " + c.getAsignatura());
+                        System.out.println("Profesor: " + c.getProfesor());
+                        System.out.println("Sala: " + c.getSala());
+                        break;
+                    case "EVALUACION":
+                        Evaluacion e = (Evaluacion) encontrada;
+                        System.out.println("Temario: " + e.getTemario());
+                        System.out.println("Ponderación: " + e.getPonderacion() + "%");
+                        System.out.println("Formato: " + (e.getEsGrupal() ? "Grupal" : "Individual"));
+                        break;
+                }
+                System.out.println("==========================================");
+            } else {
+                System.out.println(">>> Error: No se encontró ninguna actividad con ese ID.");
+            }
+
+        } catch (DateTimeParseException e) {
+            System.out.println(">>> Error: Formato incorrecto. Recuerde usar dd/mm/aaaa.");
+        }
+    }
+    
+    public void monitorIntensidad() {
+        System.out.println("\n--- MONITOR DE INTENSIDAD SEMANAL ---");
+        System.out.println("El monitor diagnosticará la carga entre dos fechas.");
+
+        try {
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            System.out.println("Ingrese la fecha de INICIO (dd/mm/aaaa) o '0' para cancelar:");
+            String fechaIniStr = sc.nextLine();
+            if (fechaIniStr.equals("0")) return;
+            LocalDate fechaInicio = LocalDate.parse(fechaIniStr, formato);
+
+            System.out.println("Ingrese la fecha de FIN (dd/mm/aaaa):");
+            String fechaFinStr = sc.nextLine();
+            LocalDate fechaFin = LocalDate.parse(fechaFinStr, formato);
+
+            if (fechaFin.isBefore(fechaInicio)) {
+                System.out.println(">>> Error: La fecha de fin no puede ser anterior a la fecha de inicio.");
+                return;
+            }
+            
+            double lvlStress = 0.0;
+            System.out.println("\nAnalizando periodo desde " + fechaIniStr + " hasta " + fechaFinStr + "...\n");
+
+            List<Actividad> listCritico = agenda.obtenerActCriticas(fechaInicio , fechaFin);
+            int totalActividades = listCritico.size();
+
+            // Iteramos sobre todos los días habilitados para buscar los que caen en el rango
+            for (Actividad act : listCritico) {
+                if(act instanceof Evaluacion){
+                    lvlStress += 1;
+                }
+                else{
+                    lvlStress += 0.5;
+                }
+ 
+            }
+            
+            
+
+            System.out.println("========== DIAGNÓSTICO ==========");
+            System.out.println("Total de actividades en el periodo: " + totalActividades);
+
+            // Sistema de alertas basado en la cantidad de horas
+            if (lvlStress >= 5) {
+                System.out.println("Estado: ¡ALERTA ROJA!  Carga académica demasiado alta. Considere reorganizar su tiempo.");
+            } else if (lvlStress >= 3) {
+                System.out.println("Estado: Carga media . Nivel manejable, pero no se descuide.");
+            } else {
+                System.out.println("Estado: Carga baja . Nivel bajo, descanse.");
+            }
+            System.out.println("=================================");
+
+        } catch (DateTimeParseException e) {
+            System.out.println(">>> Error: Formato de fecha incorrecto. Recuerde usar dd/mm/aaaa.");
+        } catch (Exception e) {
+            System.out.println(">>> Error inesperado del Monitor: " + e.getMessage());
+        }
+    }
     private void ejecutarOpcion(int opcion) {
         switch (opcion) {
             case 1: habilitarFecha(); break;
