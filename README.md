@@ -23,7 +23,7 @@ Cómo instalarlo
 
     Verifique que la versión de Java instalada en su equipo sea la 11 mediante el comando java -version en su terminal.
 
-    Descargue o clone los archivos del repositorio en su máquina local.
+    Descargue o clone los archivos del repositorio en su máquina local(https://github.com/yetybe/-Gesti-n-de-Agenda-y-reuniones.git).
 
     Asegúrese de que el archivo datos_agenda.csv se encuentre en la raíz del proyecto para que la carga inicial de datos se realice correctamente.
 
