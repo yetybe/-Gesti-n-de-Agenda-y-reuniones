@@ -123,7 +123,7 @@ public class VentanaBuscarFecha extends javax.swing.JFrame {
     private void btnBuscarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarFechaActionPerformed
         // TODO add your handling code here:
         LocalDate fecha = GestorUI.obtenerFechaDeComboBox(cbxFechas);
-        List<Actividad> listAct = actividades.buscarActividades(fecha);
+        List<Actividad> listAct = actividades.buscarActividad(fecha);
         cargarTablaAct(listAct);
     }//GEN-LAST:event_btnBuscarFechaActionPerformed
 

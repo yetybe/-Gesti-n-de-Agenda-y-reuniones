@@ -121,7 +121,7 @@ public class VentanaEliminarActividad extends javax.swing.JFrame {
          
     
     private void cargarActividadesCbx(LocalDate fecha){
-         List<Actividad> listActividades = actividades.buscarActividades(fecha);
+         List<Actividad> listActividades = actividades.buscarActividad(fecha);
          for(Actividad actividad : listActividades){
              String detalles = "[" + actividad.getId() + "] " + actividad.getTipoClase() + " | " + actividad.getTitulo();
              cbxActividades.addItem(detalles);
@@ -131,25 +131,20 @@ public class VentanaEliminarActividad extends javax.swing.JFrame {
     private void btnActualizarActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActividadesActionPerformed
         // TODO add your handling code here:
         cbxActividades.removeAllItems();
-        String fechaSelec = cbxFechas.getSelectedItem().toString();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
-        LocalDate fechaFinal = LocalDate.parse(fechaSelec, formato);
-        cargarActividadesCbx(fechaFinal);
+        LocalDate fechaFinal = GestorUI.obtenerFechaDeComboBox(cbxFechas);
+        GestorUI.cargarActividadesComboBox(cbxActividades, actividades, fechaFinal);
         
     }//GEN-LAST:event_btnActualizarActividadesActionPerformed
 
     private void btnEliminarActividad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActividad1ActionPerformed
-        // TODO add your handling code here:
-        String seleccion = cbxActividades.getSelectedItem().toString();
+        //Obtenemos la actividad que escogio el usuario y la fecha de la actividad
+          String seleccion = cbxActividades.getSelectedItem().toString();     
+          LocalDate fechaFinal = GestorUI.obtenerFechaDeComboBox(cbxFechas);
         
-        String fechaSelec = cbxFechas.getSelectedItem().toString();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
-        LocalDate fechaFinal = LocalDate.parse(fechaSelec, formato);
-        
-        // Cortamos el texto: desde el carácter 1, hasta donde está el "]"
-        String idParaEliminar = seleccion.substring(1, seleccion.indexOf("]")); 
+        // Obtenemso el id del string que obtuvimso de cbxActividades
+        String idParaEliminar = GestorUI.extraerId(seleccion);
 
-        // Ahora vas a tu Agenda y buscas la actividad en esa fecha que tenga ese ID exacto para borrarla   
+        //Eliminamos la actividad de la agenda atravez del id
         actividades.eliminarActividadPorId(fechaFinal, idParaEliminar);
         JOptionPane.showMessageDialog(this, "¡Actividad , con ID: " + idParaEliminar + " eliminada con exito!");
         this.dispose();

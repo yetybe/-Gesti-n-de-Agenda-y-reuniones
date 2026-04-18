@@ -148,7 +148,7 @@ public class VentanaMenuMain extends javax.swing.JFrame {
             }
         });
 
-        btnIntensidadSemanal.setText("Monitor de Intensidad Semana");
+        btnIntensidadSemanal.setText("Monitor de Carga Dias");
         btnIntensidadSemanal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIntensidadSemanalActionPerformed(evt);
@@ -289,7 +289,7 @@ public class VentanaMenuMain extends javax.swing.JFrame {
 
     private void btnIntensidadSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntensidadSemanalActionPerformed
         // TODO add your handling code here:
-        VentanaMonitorSemanal ventanaMonitorSemanal = new VentanaMonitorSemanal(actividades);
+        VentanaMonitorDias ventanaMonitorSemanal = new VentanaMonitorDias(actividades);
         ventanaMonitorSemanal.setLocationRelativeTo(null);
         ventanaMonitorSemanal.setVisible(true);
     }//GEN-LAST:event_btnIntensidadSemanalActionPerformed

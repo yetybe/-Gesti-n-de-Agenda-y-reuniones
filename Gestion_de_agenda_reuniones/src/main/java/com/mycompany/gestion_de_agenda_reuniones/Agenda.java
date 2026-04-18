@@ -72,13 +72,44 @@ public class Agenda {
        }
         
     public void agregarActividad(Actividad act) throws CamposActividadException {
-        if (act == null){
-            throw new CamposActividadException("Error crítico: La actividad está vacía.");
-        }
+          if (act == null){
+                throw new CamposActividadException("Error crítico: La actividad está vacía.");
+          }
         
-        if (this.buscarActividad(act.getId()) != null){
-            throw new CamposActividadException("Error crítico: Ya existe una actividad con el ID " + act.getId());
-        }
+          if (this.buscarActividad(act.getId()) != null){
+                throw new CamposActividadException("Error crítico: Ya existe una actividad con el ID " + act.getId());
+          }
+          
+          String tipoClase = act.getTipoClase();
+          switch(tipoClase){
+              case "REUNION":
+                Reunion reu = (Reunion) act;
+                if (reu.getAnfitrion() == null || reu.getAnfitrion().trim().isEmpty()) {
+                    throw new CamposActividadException("Error crítico: No colocaste el anfitrión de la Reunión.");
+                }
+                break;
+                
+            case "EVALUACION":
+                Evaluacion ev = (Evaluacion) act;
+                if (ev.getTemario() == null || ev.getTemario().trim().isEmpty()) {
+                    throw new CamposActividadException("Error crítico: No definiste el temario de la Evaluación.");
+                }
+                // Validamos que la ponderación tenga sentido matemático (no puede ser 0 o negativa)
+                if (ev.getPonderacion() <= 0) {
+                    throw new CamposActividadException("Error crítico: La ponderación de la evaluación debe ser mayor a 0.");
+                }
+                break;
+                
+            case "CLASE":
+                ClaseUniversitaria clase = (ClaseUniversitaria) act;
+                // Para la clase, exigimos que los tres campos vitales estén llenos
+                if (clase.getProfesor() == null || clase.getProfesor().trim().isEmpty() ||
+                    clase.getSala() == null || clase.getSala().trim().isEmpty() ||
+                    clase.getAsignatura() == null || clase.getAsignatura().trim().isEmpty()) {
+                    throw new CamposActividadException("Error crítico: Faltan datos clave (Profesor, Sala o Asignatura) para la Clase.");
+                }
+                break;
+          }
         
         // 3. Extraer la fecha de la actividad
         LocalDate fechaActividad = act.getFecha();
@@ -151,19 +182,22 @@ public class Agenda {
 
         }
     
-    public List<Actividad> buscarActividades(LocalDate fecha){
+    public List<Actividad> buscarActividad(LocalDate fecha){
           return mapaActividades.get(fecha);
     }
     
-    // Esta funcion extrae del mapa la lista completa de actividades criticas durante una semana apartir de una fecha indicada.
-    public List<Actividad> obtenerSemanaCritica(LocalDate fechaInicio) {
+    /*
+        Esta funcion extrae del mapa la lista completa de actividades criticas durante 
+        una semana desde una fecha inicial hasta una fecha final.
+    
+    */
+    public List<Actividad> obtenerActCriticas(LocalDate fechaInicio ,LocalDate fechaFinal) {
         
-        List<Actividad> actividadesCriticas = new ArrayList<>();
-        java.time.LocalDate limite = fechaInicio.plusDays(7); 
+          List<Actividad> actividadesCriticas = new ArrayList<>();
         
-        for (LocalDate fecha : mapaActividades.keySet()) {
+          for (LocalDate fecha : mapaActividades.keySet()) {
             // Si la fecha está dentro de la ventana de 7 días...
-            if (!fecha.isBefore(fechaInicio) && !fecha.isAfter(limite)) {
+            if (!fecha.isBefore(fechaInicio) && !fecha.isAfter(fechaFinal)) {
                 
                 List<Actividad> listaDelDia = mapaActividades.get(fecha);
                 

@@ -59,7 +59,7 @@ public class GestorUI {
         }
 
         // 2. Traemos la lista de ese día específico
-        List<Actividad> listaDelDia = actividades.buscarActividades(fecha);
+        List<Actividad> listaDelDia = actividades.buscarActividad(fecha);
 
         // 3. Verificamos que la lista exista y tenga elementos
         if (listaDelDia != null && !listaDelDia.isEmpty()) {
@@ -69,5 +69,16 @@ public class GestorUI {
             }
         } 
     }
+    
+    public static String extraerId(String itemComboBox) {
+        if (itemComboBox == null || !itemComboBox.contains("[")) return "";
+        
+        int inicio = itemComboBox.indexOf("[") + 1;
+        int fin = itemComboBox.indexOf("]");
+        
+        return itemComboBox.substring(inicio, fin);
+    }
+    
+    
     
 }

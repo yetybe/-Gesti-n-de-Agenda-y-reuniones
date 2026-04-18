@@ -10,7 +10,6 @@ import com.mycompany.gestion_de_agenda_reuniones.Evaluacion;
 import com.mycompany.gestion_de_agenda_reuniones.Reunion;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import utilidades.GestorUI;
@@ -104,7 +103,7 @@ public class VentanaEditarActividades extends javax.swing.JFrame {
                 cbxActividadesActionPerformed(evt);
             }
         });
-        getContentPane().add(cbxActividades, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 65, 144, -1));
+        getContentPane().add(cbxActividades, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 65, 200, -1));
 
         jLabel2.setText("Escoga la actividad a editar: ");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 68, -1, -1));
@@ -125,15 +124,27 @@ public class VentanaEditarActividades extends javax.swing.JFrame {
 
         lblAnfitrion.setText("Anfitrion:");
         getContentPane().add(lblAnfitrion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, -1, -1));
-        getContentPane().add(txtAnfitrion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 72, -1));
+
+        txtAnfitrion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAnfitrionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtAnfitrion, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 125, 72, -1));
 
         lblPonderacion.setText("Pondercion nota:");
         getContentPane().add(lblPonderacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
-        getContentPane().add(txtPonderacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 75, -1));
+        getContentPane().add(txtPonderacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 157, 70, -1));
 
         lblTemario.setText("Temario:");
         getContentPane().add(lblTemario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, -1));
-        getContentPane().add(txtTemario, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 75, -1));
+
+        txtTemario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTemarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtTemario, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 115, 95, -1));
 
         chbEsGrupal.setText("Es grupal");
         chbEsGrupal.addActionListener(new java.awt.event.ActionListener() {
@@ -203,22 +214,19 @@ public class VentanaEditarActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHoraInicioActionPerformed
 
     private void cbxFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFechasActionPerformed
-        // TODO add your handling code here:
-        String fechaSelec = cbxFechas.getSelectedItem().toString();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
-        LocalDate fechaFinal = LocalDate.parse(fechaSelec, formato);
-        cargarCbxActividades(fechaFinal);
+        // TODO add your handling code here:      
+        LocalDate fechaFinal = GestorUI.obtenerFechaDeComboBox(cbxFechas);
+        GestorUI.cargarActividadesComboBox(cbxActividades, actividades, fechaFinal);
         
     }//GEN-LAST:event_cbxFechasActionPerformed
     
-    // Funcion 
+    // Funcion que rrellena los detalles de cada actividad especifica en los cuadros de texto
     private void cbxActividadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxActividadesItemStateChanged
         // TODO add your handling code here:
         if(cbxActividades.getSelectedItem()!= null){
-            String textoSelecc = cbxActividades.getSelectedItem().toString();
-            String[] partes = textoSelecc.split(" \\| "); 
-            String tipoClase = partes[0]; 
-            mostrarAtributos(tipoClase);
+          String textoSelec = cbxActividades.getSelectedItem().toString();
+          String tipoClase = extraerTipo(textoSelec);
+          mostrarAtributos(tipoClase);
         }
     }//GEN-LAST:event_cbxActividadesItemStateChanged
     
@@ -227,9 +235,9 @@ public class VentanaEditarActividades extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(cbxActividades.getSelectedItem() != null){
           String actividadDetalles= cbxActividades.getSelectedItem().toString();
-          String[] partes = actividadDetalles.split(" \\| ");
-          String textoId = partes[1].replace("ID:", "").trim();
-          switch(partes[0]){
+          String tipoClase = extraerTipo(actividadDetalles);
+          String textoId = GestorUI.extraerId(actividadDetalles);
+          switch(tipoClase){
               case"REUNION":
                   Reunion auxReunion = (Reunion)actividades.buscarActividad(textoId);
                   llenarCamposActividad(auxReunion);
@@ -320,20 +328,14 @@ public class VentanaEditarActividades extends javax.swing.JFrame {
     
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-// Funcion que rellena el cbxActividades con las actividades de la fecha seleccionada en el cbxFechas
-private void cargarCbxActividades(LocalDate fechaSelec){
-    List<Actividad> listAct = actividades.buscarActividades(fechaSelec);
-    cbxActividades.removeAllItems();
-    for( int i = 0 ; i < listAct.size() ; i ++){
-        Actividad aux = listAct.get(i);
-        String tipoClase = aux.getTipoClase();
-        String detalles = aux.getTipoClase() + " | ID: " + aux.getId() + " | Titulo: " + aux.getTitulo();
-        cbxActividades.addItem(detalles);
-    
-    }
-}
+    private void txtAnfitrionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnfitrionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnfitrionActionPerformed
 
 
+    private void txtTemarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTemarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTemarioActionPerformed
 
 // Funcion que oculta los campos especificos de las subclases de actividad
 private void ocultarCamposEspecificos(){
@@ -390,9 +392,15 @@ private void llenarCamposActividad(Actividad act){
     txtHoraInicio.setText(act.getHoraInicio().toString());
     txtHoraFinal.setText(act.getHoraFin().toString());
 
-
-    
 }
+private String extraerTipo(String itemComboBox) {
+        if (itemComboBox == null || !itemComboBox.contains("] ") || !itemComboBox.contains(" |")) return "";
+        
+        int inicio = itemComboBox.indexOf("] ") + 2; // +2 para saltar el corchete y el espacio
+        int fin = itemComboBox.indexOf(" |");
+        
+        return itemComboBox.substring(inicio, fin);
+    }
     
     /**
      * @param args the command line arguments
