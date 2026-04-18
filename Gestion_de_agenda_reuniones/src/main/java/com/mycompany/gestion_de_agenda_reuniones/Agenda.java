@@ -68,13 +68,44 @@ public class Agenda {
        }
         
     public void agregarActividad(Actividad act) throws CamposActividadException {
-        if (act == null){
-            throw new CamposActividadException("Error crítico: La actividad está vacía.");
-        }
+          if (act == null){
+                throw new CamposActividadException("Error crítico: La actividad está vacía.");
+          }
         
-        if (this.buscarActividad(act.getId()) != null){
-            throw new CamposActividadException("Error crítico: Ya existe una actividad con el ID " + act.getId());
-        }
+          if (this.buscarActividad(act.getId()) != null){
+                throw new CamposActividadException("Error crítico: Ya existe una actividad con el ID " + act.getId());
+          }
+          
+          String tipoClase = act.getTipoClase();
+          switch(tipoClase){
+              case "REUNION":
+                Reunion reu = (Reunion) act;
+                if (reu.getAnfitrion() == null || reu.getAnfitrion().trim().isEmpty()) {
+                    throw new CamposActividadException("Error crítico: No colocaste el anfitrión de la Reunión.");
+                }
+                break;
+                
+            case "EVALUACION":
+                Evaluacion ev = (Evaluacion) act;
+                if (ev.getTemario() == null || ev.getTemario().trim().isEmpty()) {
+                    throw new CamposActividadException("Error crítico: No definiste el temario de la Evaluación.");
+                }
+                // Validamos que la ponderación tenga sentido matemático (no puede ser 0 o negativa)
+                if (ev.getPonderacion() <= 0) {
+                    throw new CamposActividadException("Error crítico: La ponderación de la evaluación debe ser mayor a 0.");
+                }
+                break;
+                
+            case "CLASE":
+                ClaseUniversitaria clase = (ClaseUniversitaria) act;
+                // Para la clase, exigimos que los tres campos vitales estén llenos
+                if (clase.getProfesor() == null || clase.getProfesor().trim().isEmpty() ||
+                    clase.getSala() == null || clase.getSala().trim().isEmpty() ||
+                    clase.getAsignatura() == null || clase.getAsignatura().trim().isEmpty()) {
+                    throw new CamposActividadException("Error crítico: Faltan datos clave (Profesor, Sala o Asignatura) para la Clase.");
+                }
+                break;
+          }
         
         // 3. Extraer la fecha de la actividad
         LocalDate fechaActividad = act.getFecha();

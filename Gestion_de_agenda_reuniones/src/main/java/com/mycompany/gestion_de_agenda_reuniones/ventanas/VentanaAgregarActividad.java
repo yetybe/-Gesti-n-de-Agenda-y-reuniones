@@ -258,7 +258,7 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
          String id = txtId.getText();
          String titulo = txtTitulo.getText();
          String hrInicioStr = txtHrInicio.getText();
-         String hrFinalStr= txtHrInicio.getText();
+         String hrFinalStr= txtHrFinal.getText();
          
          //Nos aseguramos de que el usuario haya rellenado los campos principales
          if(id.isEmpty() || titulo.isEmpty() || hrInicioStr.isEmpty() || hrFinalStr.isEmpty()){
@@ -267,12 +267,14 @@ public class VentanaAgregarActividad extends javax.swing.JFrame {
          }
         try{
           //Obtenemos los atributos que el usuario coloco
-         String fecha = cbxFechas.getSelectedItem().toString();
-         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-         LocalDate fechaFinal = LocalDate.parse(fecha, formato); 
+         LocalDate fechaFinal = GestorUI.obtenerFechaDeComboBox(cbxFechas); 
          String tipoClase = cbxTipoClase.getSelectedItem().toString().toUpperCase();
          LocalTime hrInicio =LocalTime.parse( hrInicioStr);
          LocalTime hrFinal =LocalTime.parse( hrFinalStr);
+         if(hrInicio.isAfter(hrFinal)){
+          javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingresa una hora de inicio válida que ocurra antes de la hora final.", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+          return;
+         }
 
          Actividad newAct = null;
         
